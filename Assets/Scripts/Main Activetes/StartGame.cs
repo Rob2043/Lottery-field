@@ -1,17 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
+using CustomEventBus;
 
-public class MainChoise : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
-    [SerializeField] private float _time;
     [SerializeField] private TMP_Text[] _arrayTextNumbers = new TMP_Text[8];
-    [SerializeField] private TMP_Text _textOfGuessNumber;
     [SerializeField] private TMP_Text _textOfHidNumber;
-    private Dictionary<int, int> RemeberNumber = new Dictionary<int, int>();
+    private Dictionary<int, int> RememberNumber = new();
+    private Queue<int> RememberOfPeriod = new();
     private int[] RandomNumbers = new int[8];
     private int _choiseNumber = 0;
     private int _countOfNumbers;
@@ -21,6 +18,7 @@ public class MainChoise : MonoBehaviour
 
     private void Awake()
     {
+        EventBus.TimeToUpdateHidNumber = OnTime;
         _countOfNumbers = Random.Range(6, 8);
         _guessNumnber = new int[_countOfNumbers];
         _hiddenNumber = _countOfNumbers switch
@@ -32,7 +30,7 @@ public class MainChoise : MonoBehaviour
         int _copyHiddenNumber = _hiddenNumber;
         for (int i = 0; i < _guessNumnber.Length; i++)
         {
-            int _hidRandomDigit = Random.Range(0, 1);
+            int _hidRandomDigit = Random.Range(0, 2);
             _guessNumnber[i] = Random.Range(0, 9);
             if (_guessDigit == 0)
                 _guessDigit = _guessNumnber[i];
@@ -40,12 +38,15 @@ public class MainChoise : MonoBehaviour
                 _guessDigit = _guessDigit * 10 + _guessNumnber[i];
             if (_hidRandomDigit == 0 && _copyHiddenNumber != 0)
             {
-                RemeberNumber.Add(i, _guessNumnber[i]);
-                _guessNumnber[i] = 5;
+                RememberOfPeriod.Enqueue(i);
+                RememberNumber.Add(i, _guessNumnber[i]);
+                if (_guessNumnber[i] != 5)
+                    _guessNumnber[i] = 5;
+                else
+                    _guessNumnber[i] = 4;
                 _copyHiddenNumber--;
             }
         }
-        _textOfGuessNumber.text = $"{_guessDigit}";
         int RandomPeriodNumber = Random.Range(0, 7);
         for (int i = 0; i < RandomNumbers.Length; i++)
         {
@@ -67,18 +68,44 @@ public class MainChoise : MonoBehaviour
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
+        DisclosureNumber(_guessNumnber, 0, RememberNumber[0], false);
     }
-
-    private int ToNummber(int[] EnterArray)
+    private void OnTime()
     {
-        int _hidNumber = 0;
-        for (int i = 0; i < EnterArray.Length; i++)
+        int periodNumber = RememberOfPeriod.Dequeue();
+        DisclosureNumber(_guessNumnber, periodNumber, RememberNumber[periodNumber], true);
+    }
+    private void DisclosureNumber(int[] ArrayOfNumber, int keyNumber, int valeyOfKey, bool NeedOrNot)
+    {
+        string name = "";
+        for (int i = 0; i < ArrayOfNumber.Length; i++)
         {
-            if (_hidNumber == 0)
-                _hidNumber = EnterArray[i];
+            int SomeNumber = ArrayOfNumber[i];
+            if (keyNumber == i && NeedOrNot == true)
+            {
+                name = name + valeyOfKey;
+                ArrayOfNumber[i] = valeyOfKey;
+            }
             else
-                _hidNumber = _hidNumber * 10 + _guessNumnber[i];
+            {
+                if (SomeNumber == 5 && RememberNumber.ContainsKey(i) && RememberNumber[i] != SomeNumber)
+                    name = name + "*";
+                else
+                    name = name + SomeNumber;
+            }
         }
-        return _hidNumber;
+        _textOfHidNumber.text = name;
     }
 }
+// private int ToNummber(int[] EnterArray)
+// {
+//     int _hidNumber = 0;
+//     for (int i = 0; i < EnterArray.Length; i++)
+//     {
+//         if (_hidNumber == 0)
+//             _hidNumber = EnterArray[i];
+//         else
+//             _hidNumber = _hidNumber * 10 + EnterArray[i];
+//     }
+//     return _hidNumber;
+// }
