@@ -5,13 +5,11 @@ using UnityEngine;
 public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
-    public List<GameObject> ObjectPool = new();
-    public int BestScore;
     public int Conins;
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        Conins = PlayerPrefs.GetInt("Stars", 0);
+        Conins = PlayerPrefs.GetInt("Money", 0);
         if (instance == null)
         {
             instance = this;
@@ -22,5 +20,17 @@ public class Iinstance : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+    private void SetCoins(int Amount)
+    {
+        Conins+=Amount;
+    }
+    private int GetCoins()
+    {
+        return Conins;
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("Money",Conins);
     }
 }

@@ -18,7 +18,10 @@ public class StartGame : MonoBehaviour
 
     private void Awake()
     {
+        EventBus.GetTransformForBillet = GetPositionForButton;
         EventBus.TimeToUpdateHidNumber = OnTime;
+        EventBus.SetPlayersChouse = PlayersChouse;
+        EventBus.ReadyForCheck = CheckWining;
         _countOfNumbers = Random.Range(6, 8);
         _guessNumnber = new int[_countOfNumbers];
         _hiddenNumber = _countOfNumbers switch
@@ -75,6 +78,25 @@ public class StartGame : MonoBehaviour
         int periodNumber = RememberOfPeriod.Dequeue();
         DisclosureNumber(_guessNumnber, periodNumber, RememberNumber[periodNumber], true);
     }
+
+    private Transform GetPositionForButton(int index)
+    {
+        return _arrayTextNumbers[index].transform.parent.transform;
+    }
+
+    private bool CheckWining()
+    {
+        if(_choiseNumber == _guessDigit)
+            return true;
+        else
+            return false;
+    }
+
+    private void PlayersChouse(int hisNumber)
+    {
+        _choiseNumber = hisNumber;
+    }
+
     private void DisclosureNumber(int[] ArrayOfNumber, int keyNumber, int valeyOfKey, bool NeedOrNot)
     {
         string name = "";

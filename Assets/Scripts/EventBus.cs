@@ -1,12 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CustomEventBus
 {
     public static class EventBus
     {
-        public static Action TimeToUpdateHidNumber;
+        public static Action TimeToUpdateHidNumber; 
+        public static Func<Transform,int> GetTransformForBillet;
+        public static Action<int> ChouseNumber; 
+        public static Func<int> GetCoins;
+        public static Action<int> SetCoins;
+        public static Action<int> SetPlayersChouse;
+        public static Func<bool> ReadyForCheck;
     }
 }
