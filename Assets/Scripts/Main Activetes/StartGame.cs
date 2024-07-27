@@ -14,7 +14,7 @@ public class StartGame : MonoBehaviour
     private int _countOfNumbers;
     private int[] _guessNumnber;
     private int _guessDigit = 0;
-    private int _hiddenNumber = 3;
+    private int _hiddenNumber = 4;
 
     private void Awake()
     {
@@ -24,13 +24,7 @@ public class StartGame : MonoBehaviour
         EventBus.ReadyForCheck = CheckWining;
         _countOfNumbers = Random.Range(6, 8);
         _guessNumnber = new int[_countOfNumbers];
-        _hiddenNumber = _countOfNumbers switch
-        {
-            6 => 3,
-            8 => 4,
-            _ => _hiddenNumber
-        };
-        int _copyHiddenNumber = _hiddenNumber;
+        int _copyhidNumber = _hiddenNumber;
         for (int i = 0; i < _guessNumnber.Length; i++)
         {
             int _hidRandomDigit = Random.Range(0, 2);
@@ -39,7 +33,7 @@ public class StartGame : MonoBehaviour
                 _guessDigit = _guessNumnber[i];
             else
                 _guessDigit = _guessDigit * 10 + _guessNumnber[i];
-            if (_hidRandomDigit == 0 && _copyHiddenNumber != 0)
+            if (_hidRandomDigit == 0 && _copyhidNumber != 0)
             {
                 RememberOfPeriod.Enqueue(i);
                 RememberNumber.Add(i, _guessNumnber[i]);
@@ -47,7 +41,7 @@ public class StartGame : MonoBehaviour
                     _guessNumnber[i] = 5;
                 else
                     _guessNumnber[i] = 4;
-                _copyHiddenNumber--;
+                _copyhidNumber--;
             }
         }
         int RandomPeriodNumber = Random.Range(0, 7);
@@ -71,11 +65,13 @@ public class StartGame : MonoBehaviour
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
-        DisclosureNumber(_guessNumnber, 0, RememberNumber[0], false);
+        int periodNumber = RememberOfPeriod.Dequeue();
+        DisclosureNumber(_guessNumnber, periodNumber, RememberNumber[periodNumber], false);
     }
     private void OnTime()
     {
         int periodNumber = RememberOfPeriod.Dequeue();
+        Debug.Log(periodNumber);
         DisclosureNumber(_guessNumnber, periodNumber, RememberNumber[periodNumber], true);
     }
 
@@ -94,7 +90,7 @@ public class StartGame : MonoBehaviour
 
     private void PlayersChouse(int hisNumber)
     {
-        _choiseNumber = hisNumber;
+        _choiseNumber = RandomNumbers[hisNumber];
     }
 
     private void DisclosureNumber(int[] ArrayOfNumber, int keyNumber, int valeyOfKey, bool NeedOrNot)

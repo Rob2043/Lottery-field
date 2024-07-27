@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using CustomEventBus;
 using UnityEngine;
 
 public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
-    public int Conins;
+    public int Coins;
     private void Awake()
     {
+        EventBus.SetCoins = SetCoins;
+        EventBus.GetCoins = GetCoins;
         Application.targetFrameRate = 60;
-        Conins = PlayerPrefs.GetInt("Money", 0);
+        Coins = PlayerPrefs.GetInt("Money", 0);
+        PlayerPrefs.SetInt("ChooseCount", 0);
         if (instance == null)
         {
             instance = this;
@@ -23,14 +27,14 @@ public class Iinstance : MonoBehaviour
     }
     private void SetCoins(int Amount)
     {
-        Conins+=Amount;
+        Coins += Amount;
     }
     private int GetCoins()
     {
-        return Conins;
+        return Coins;
     }
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("Money",Conins);
+        PlayerPrefs.SetInt("Money", Coins);
     }
 }

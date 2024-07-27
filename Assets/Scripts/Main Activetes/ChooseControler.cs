@@ -11,10 +11,11 @@ public class ChooseControler : MonoBehaviour
     private int _timeForUnhid = 20;
     private int _winScore = 10000;
     private bool _wasChousing = false;
+    private bool _wasWin = false;
 
     private void Start()
     {
-        EventBus.ChouseNumber= IsChoose;
+        EventBus.ChouseNumber = IsChoose;
     }
     private void Update()
     {
@@ -22,25 +23,25 @@ public class ChooseControler : MonoBehaviour
         {
             _time -= Time.deltaTime;
             _textOfTime.text = $"{(int)_time}";
+            if (_timeForUnhid >= _time)
+            {
+                if (_wasChousing!)
+                    _winScore /= 2;
+                EventBus.TimeToUpdateHidNumber.Invoke();
+                _timeForUnhid -= 10;
+            }
         }
-        if (_timeForUnhid >= _time)
+        if (_time <= 0 && _wasWin!)
         {
-            if(_wasChousing!)
-                _winScore /= 2;
-            EventBus.TimeToUpdateHidNumber.Invoke();
-            _timeForUnhid -= 10;
-        }
-        if(_time <= 0)
-        {
-            if(EventBus.ReadyForCheck.Invoke() == true)
+            if (EventBus.ReadyForCheck.Invoke() == true)
             {
                 EventBus.SetCoins(_winScore);
                 _resultText.text = "You Won";
             }
-            else 
+            else
                 _resultText.text = "You Lose";
             _endGamePanel.SetActive(true);
-
+            _wasWin = true;
         }
     }
     private void IsChoose(int indexOfButton)
@@ -48,4 +49,5 @@ public class ChooseControler : MonoBehaviour
         _wasChousing = true;
         EventBus.SetPlayersChouse.Invoke(indexOfButton);
     }
+    
 }
