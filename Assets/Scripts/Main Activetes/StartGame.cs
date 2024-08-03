@@ -30,10 +30,10 @@ public class StartGame : MonoBehaviour
         _countOfNumbers = Random.Range(6, 8);
         _FirstGuessNumber = new int[_countOfNumbers];
         _SecondGuessNumber = new int[_countOfNumbers];
-        int RandomPeriodFirstNumber = Random.Range(0, 7);
-        int RandomPeriodSecondNumber = Random.Range(0, 7);
-        IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
-        IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
+        int RandomPeriodFirstNumber = Random.Range(0, _countOfNumbers);
+        int RandomPeriodSecondNumber = Random.Range(0, _countOfNumbers);
+        (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
+        (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
         for (int i = 0; i < RandomNumbers.Length; i++)
         {
             int _randomNumber = RandomNumbers[i];
@@ -52,25 +52,27 @@ public class StartGame : MonoBehaviour
                     else
                         _randomNumber = _randomNumber * 10 + _guessRandomDigit;
                 }
+
             }
+
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
         int firstPeriodNumber = RememberOfFirstPeriod.Dequeue();
-        int secondPeriodNumber = RememberOfFirstPeriod.Dequeue();
+        int secondPeriodNumber = RememberOfSecondPeriod.Dequeue();
         DisclosureNumber(firstPeriodNumber, secondPeriodNumber, RememberFirstNumber[firstPeriodNumber], RememberSecondNumber[secondPeriodNumber]);
     }
-    private void IninizializationNumber(int[] GuessNumber, int GuessDigit, Queue<int> RememberOfPeriod, Dictionary<int, int> RememberNumber)
+    private (int GuessDigit, int[] GuessNumber) IninizializationNumber(int[] GuessNumber, int GuessDigit, Queue<int> RememberOfPeriod, Dictionary<int, int> RememberNumber)
     {
         int _copyhidNumber = _hiddenNumber;
         for (int i = 0; i < GuessNumber.Length; i++)
         {
             int _hidRandomDigit = Random.Range(0, 2);
             GuessNumber[i] = Random.Range(0, 9);
-            if (_FirstGuessDigit == 0)
-                _FirstGuessDigit = GuessNumber[i];
+            if (GuessDigit == 0)
+                GuessDigit = GuessNumber[i];
             else
-                _FirstGuessDigit = _FirstGuessDigit * 10 + GuessNumber[i];
+                GuessDigit = GuessDigit * 10 + GuessNumber[i];
             if (_hidRandomDigit == 0 && _copyhidNumber != 0)
             {
                 RememberOfPeriod.Enqueue(i);
@@ -82,6 +84,7 @@ public class StartGame : MonoBehaviour
                 _copyhidNumber--;
             }
         }
+        return (GuessDigit, GuessNumber);
     }
     private void OnTime()
     {
@@ -142,7 +145,7 @@ public class StartGame : MonoBehaviour
             }
         }
         _textOfSecondHidNumber.text = SecondNameOfNumber;
-        _textOfSecondHidNumber.text = SecondNameOfNumber;
+        _textOfFirstHidNumber.text = FirstNameOfNumber;
     }
 }
 // private int ToNummber(int[] EnterArray)
