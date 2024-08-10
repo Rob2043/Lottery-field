@@ -86,7 +86,7 @@ public class LocalMenu : MonoBehaviour
     {
         Time.timeScale = 0;
         audioSources[1].Play();
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OpenInformationURL()

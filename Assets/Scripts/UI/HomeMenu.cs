@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class HomeMenu : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text starsText;
     [SerializeField] private GameObject settingsPanel;
     [Header("Audio Settings")]
@@ -20,8 +19,6 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private AudioMixer masterAudioMixer;
 
     private bool isSoundActive;
-    private int randomCounter = 0;
-    private float randomFloat = 0f;
 
     private void Start()
     {
@@ -49,7 +46,7 @@ public class HomeMenu : MonoBehaviour
     public void StartGame()
     {
         audioClips[1].Play();
-        EventBus.LodingScene.Invoke("Play");
+        EventBus.LodingScene.Invoke("GameScene");
     }
 
     public void OpenSettings()

@@ -12,7 +12,7 @@ public class Iinstance : MonoBehaviour
         EventBus.SetCoins = SetCoins;
         EventBus.GetCoins = GetCoins;
         Application.targetFrameRate = 60;
-        Coins = PlayerPrefs.GetInt("Money", 0);
+        Coins = PlayerPrefs.GetInt("Money", 10000);
         PlayerPrefs.SetInt("ChooseCount", 0);
         if (instance == null)
         {
