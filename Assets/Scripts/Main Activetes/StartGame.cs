@@ -88,7 +88,7 @@ public class StartGame : MonoBehaviour
     private void OnTime()
     {
         int firstPeriodNumber = RememberOfFirstPeriod.Dequeue();
-        int secondPeriodNumber = RememberOfFirstPeriod.Dequeue();
+        int secondPeriodNumber = RememberOfSecondPeriod.Dequeue();
         DisclosureNumber(firstPeriodNumber, secondPeriodNumber, RememberFirstNumber[firstPeriodNumber], RememberSecondNumber[secondPeriodNumber]);
     }
 
@@ -97,18 +97,29 @@ public class StartGame : MonoBehaviour
         return _arrayTextNumbers[index].transform.parent.transform;
     }
 
-    private (bool,int) CheckWining()
+    private (bool, int) CheckWining()
     {
-        
-        if (_choiseNumber == _FirstGuessDigit)
-            return true;
-        else
-            return false;
+        int amountWining = 0;
+        bool wasWin = false;
+        for (int i = 0; i <= _choiseNumbers.Length; i++)
+        {
+            if (_choiseNumbers[i] == _FirstGuessDigit)
+            {
+                amountWining++;
+                wasWin = true;
+            }
+            else if (_choiseNumbers[i] == _SecondGuessDigit)
+            {
+                amountWining++;
+                wasWin = true;
+            }
+        }
+        return (wasWin,amountWining);
     }
 
     private void PlayersChouse(int hisNumber)
     {
-        _choiseNumber[_countOfChouising] = RandomNumbers[hisNumber];
+        _choiseNumbers[_countOfChouising] = RandomNumbers[hisNumber];
         _countOfChouising++;
     }
 

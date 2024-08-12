@@ -12,7 +12,7 @@ namespace CustomEventBus
         public static Func<int> GetCoins;
         public static Action<int> SetCoins;
         public static Action<int> SetPlayersChouse;
-        public static Func<bool,int> ReadyForCheck;
+        public static Func<(bool,int)> ReadyForCheck;
         public static Action<string> LodingScene;
     }
 }

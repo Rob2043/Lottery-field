@@ -33,9 +33,10 @@ public class ChooseControler : MonoBehaviour
         }
         if (_time <= 0 && _wasWin!)
         {
-            if (EventBus.ReadyForCheck.Invoke() == true)
+            (bool wasWin, int value) =  EventBus.ReadyForCheck.Invoke();
+            if (wasWin == true)
             {
-                EventBus.SetCoins(_winScore);
+                EventBus.SetCoins(_winScore * value);
                 _resultText.text = "You Won";
             }
             else

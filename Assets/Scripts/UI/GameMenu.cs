@@ -13,7 +13,11 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private AudioSource[] audioSources;
     [SerializeField] private AudioMixer mainAudioMixer;
     [SerializeField] private Slider timerSlider;
+    [SerializeField] private Button soundToggleButton;
+    [SerializeField] private Sprite soundOnSprite;
+    [SerializeField] private Sprite soundOffSprite;
 
+    private bool isSoundActive;
     private const string SoundPreference = "isSoundOn";
     private const float VolumeOn = 0f;
     private const float VolumeOff = -80f;
@@ -21,8 +25,8 @@ public class LocalMenu : MonoBehaviour
 
     private void Start()
     {
-        //InitializeAudioSettings();
-        Time.timeScale = 1f; 
+        InitializeAudioSettings();
+        Time.timeScale = 1f;
         if (timerSlider != null)
         {
             timerSlider.maxValue = totalTime;
@@ -41,7 +45,30 @@ public class LocalMenu : MonoBehaviour
             yield return null;
         }
     }
-
+    public void ToggleSound()
+    {
+        isSoundActive = !isSoundActive;
+        audioSources[1].Play();
+        foreach (var audio in audioSources)
+        {
+            audio.enabled = isSoundActive;
+        }
+        mainAudioMixer.SetFloat("MasterVolume", isSoundActive ? 0f : -80f);
+        PlayerPrefs.SetInt("isSoundOn", isSoundActive ? 1 : 0);
+        PlayerPrefs.Save();
+        soundToggleButton.image.sprite = isSoundActive ? soundOnSprite : soundOffSprite;
+    }
+    public void OpenSettings()
+    {
+        audioSources[1].Play();
+        exitPanel.SetActive(true);
+    }
+    
+    public void CloseSettings()
+    {
+        audioSources[1].Play();
+        exitPanel.SetActive(false);
+    }
     private void InitializeAudioSettings()
     {
         int soundStatus = PlayerPrefs.GetInt(SoundPreference, 1);
@@ -81,17 +108,4 @@ public class LocalMenu : MonoBehaviour
             gameDisplayPanel.SetActive(true);
         }
     }
-
-    public void RestartGame()
-    {
-        Time.timeScale = 0;
-        audioSources[1].Play();
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void OpenInformationURL()
-    {
-        Application.OpenURL("https://youtu.be/1lyu1KKwC74?si=hyhUeTOY62peEHdH");
-    }
-
 }
