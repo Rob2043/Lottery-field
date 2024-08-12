@@ -48,6 +48,5 @@ public class ChooseControler : MonoBehaviour
     {
         _wasChousing = true;
         EventBus.SetPlayersChouse.Invoke(indexOfButton);
-    }
-    
+    }  
 }

@@ -12,12 +12,13 @@ public class StartGame : MonoBehaviour
     private Queue<int> RememberOfFirstPeriod = new();
     private int[] _FirstGuessNumber;
     private int _FirstGuessDigit = 0;
+    private int _SecondGuessDigit = 0;
     private Dictionary<int, int> RememberSecondNumber = new();
     private Queue<int> RememberOfSecondPeriod = new();
     private int[] _SecondGuessNumber;
-    private int _SecondGuessDigit = 0;
     private int[] RandomNumbers = new int[16];
-    private int _choiseNumber = 0;
+    private int[] _choiseNumbers = new int[2];
+    private int _countOfChouising = 0;
     private int _countOfNumbers;
     private int _hiddenNumber = 4;
 
@@ -52,9 +53,7 @@ public class StartGame : MonoBehaviour
                     else
                         _randomNumber = _randomNumber * 10 + _guessRandomDigit;
                 }
-
             }
-
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
@@ -98,8 +97,9 @@ public class StartGame : MonoBehaviour
         return _arrayTextNumbers[index].transform.parent.transform;
     }
 
-    private bool CheckWining()
+    private (bool,int) CheckWining()
     {
+        
         if (_choiseNumber == _FirstGuessDigit)
             return true;
         else
@@ -108,7 +108,8 @@ public class StartGame : MonoBehaviour
 
     private void PlayersChouse(int hisNumber)
     {
-        _choiseNumber = RandomNumbers[hisNumber];
+        _choiseNumber[_countOfChouising] = RandomNumbers[hisNumber];
+        _countOfChouising++;
     }
 
     private void DisclosureNumber(int firstKeyNumber, int secondKeyNumber, int firstValeyOfKey, int secondValeyOfKey)

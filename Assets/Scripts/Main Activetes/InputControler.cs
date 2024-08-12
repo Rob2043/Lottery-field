@@ -6,14 +6,21 @@ using CustomEventBus;
 public class InputControler : MonoBehaviour
 {
     [SerializeField] private GameObject _chouseTicket;
+    [SerializeField] private TMP_Text _ScoreOfTickets;
+    private int _AmountOfTicket = 2;
+
+    private void Start()
+    {
+        _ScoreOfTickets.text = $"{_AmountOfTicket}";
+    }
     public void ChoseButton(int numberOfButton)
     {
-        if (PlayerPrefs.GetInt("ChooseCount", 0) == 0)
-        {
+        if(_AmountOfTicket != 0)
+        { 
             Instantiate(_chouseTicket, EventBus.GetTransformForBillet.Invoke(numberOfButton));
             EventBus.ChouseNumber.Invoke(numberOfButton);
-            PlayerPrefs.SetInt("ChooseCount", 1);
+            _AmountOfTicket--;
+            _ScoreOfTickets.text = $"{_AmountOfTicket}";
         }
-
     }
 }
