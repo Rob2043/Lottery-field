@@ -6,6 +6,8 @@ public class ChooseControler : MonoBehaviour
 {
     [SerializeField] private float _time = 30;
     [SerializeField] private TMP_Text _textOfTime;
+    [SerializeField] private TMP_Text _textOfMoney;
+    [SerializeField] private TMP_Text _textOfPriceMoney;
     [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private TMP_Text _resultText;
     private int _timeForUnhid = 20;
@@ -25,19 +27,22 @@ public class ChooseControler : MonoBehaviour
             _textOfTime.text = $"{(int)_time}";
             if (_timeForUnhid >= _time)
             {
-                if (_wasChousing!)
+                if (_wasChousing == false)
                     _winScore /= 2;
                 EventBus.TimeToUpdateHidNumber.Invoke();
                 _timeForUnhid -= 10;
             }
         }
-        if (_time <= 0 && _wasWin!)
+        if (_time <= 0 && _wasWin == false)
         {
             (bool wasWin, int value) =  EventBus.ReadyForCheck.Invoke();
             if (wasWin == true)
             {
-                EventBus.SetCoins(_winScore * value);
-                _resultText.text = "You Won";
+                int price = _winScore * value;
+                EventBus.SetCoins(price);
+                _resultText.text = "You Won!";
+                _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
+                _textOfPriceMoney.text = $"{price}";
             }
             else
                 _resultText.text = "You Lose";

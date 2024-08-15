@@ -5,34 +5,45 @@ using CustomEventBus;
 
 public class StartGame : MonoBehaviour
 {
+    [Header("Texts")]
     [SerializeField] private TMP_Text[] _arrayTextNumbers = new TMP_Text[16];
     [SerializeField] private TMP_Text _textOfFirstHidNumber;
     [SerializeField] private TMP_Text _textOfSecondHidNumber;
+    #region FirstNumber
     private Dictionary<int, int> RememberFirstNumber = new();
     private Queue<int> RememberOfFirstPeriod = new();
     private int[] _FirstGuessNumber;
     private int _FirstGuessDigit = 0;
+    #endregion FirstNumber
+    #region  SecondNumber
     private int _SecondGuessDigit = 0;
     private Dictionary<int, int> RememberSecondNumber = new();
     private Queue<int> RememberOfSecondPeriod = new();
     private int[] _SecondGuessNumber;
+    #endregion SecondNumber
+    #region RandomsNumbers
     private int[] RandomNumbers = new int[16];
-    private int[] _choiseNumbers = new int[2];
-    private int _countOfChouising = 0;
+    private int[] _choiceNumbers = new int[2];
+    private int _countOfChoosing = 0;
     private int _countOfNumbers;
-    private int _hiddenNumber = 4;
+    private int _hiddenNumber = 5;
+    private int RandomPeriodFirstNumber = 0;
+    private int RandomPeriodSecondNumber = 0;
+    #endregion RandomsNumbers
 
     private void Awake()
     {
-        EventBus.GetTransformForBillet = GetPositionForButton;
-        EventBus.TimeToUpdateHidNumber = OnTime;
-        EventBus.SetPlayersChouse = PlayersChouse;
-        EventBus.ReadyForCheck = CheckWining;
         _countOfNumbers = Random.Range(6, 8);
         _FirstGuessNumber = new int[_countOfNumbers];
         _SecondGuessNumber = new int[_countOfNumbers];
-        int RandomPeriodFirstNumber = Random.Range(0, _countOfNumbers);
-        int RandomPeriodSecondNumber = Random.Range(0, _countOfNumbers);
+        bool diferentRandom = false;
+        while (diferentRandom == false)
+        {
+            RandomPeriodFirstNumber = Random.Range(0, 16);
+            RandomPeriodSecondNumber = Random.Range(0, 16);
+            if (RandomPeriodFirstNumber != RandomPeriodSecondNumber)
+                diferentRandom = true;
+        }
         (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
         (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
         for (int i = 0; i < RandomNumbers.Length; i++)
@@ -51,37 +62,54 @@ public class StartGame : MonoBehaviour
                     if (_randomNumber == 0)
                         _randomNumber = _guessRandomDigit;
                     else
-                        _randomNumber = _randomNumber * 10 + _guessRandomDigit;
+                        _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
                 }
             }
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
-        int firstPeriodNumber = RememberOfFirstPeriod.Dequeue();
-        int secondPeriodNumber = RememberOfSecondPeriod.Dequeue();
-        DisclosureNumber(firstPeriodNumber, secondPeriodNumber, RememberFirstNumber[firstPeriodNumber], RememberSecondNumber[secondPeriodNumber]);
+        OnTime();
+    }
+    private void OnEnable()
+    {
+        EventBus.GetTransformForBillet += GetPositionForButton;
+        EventBus.TimeToUpdateHidNumber += OnTime;
+        EventBus.SetPlayersChouse += PlayersChouse;
+        EventBus.ReadyForCheck += CheckWining;
+    }
+    private void OnDisable()
+    {
+        EventBus.GetTransformForBillet -= GetPositionForButton;
+        EventBus.TimeToUpdateHidNumber -= OnTime;
+        EventBus.SetPlayersChouse -= PlayersChouse;
+        EventBus.ReadyForCheck -= CheckWining;
     }
     private (int GuessDigit, int[] GuessNumber) IninizializationNumber(int[] GuessNumber, int GuessDigit, Queue<int> RememberOfPeriod, Dictionary<int, int> RememberNumber)
     {
         int _copyhidNumber = _hiddenNumber;
-        for (int i = 0; i < GuessNumber.Length; i++)
+        while (_copyhidNumber > 0)
         {
-            int _hidRandomDigit = Random.Range(0, 2);
-            GuessNumber[i] = Random.Range(0, 9);
-            if (GuessDigit == 0)
-                GuessDigit = GuessNumber[i];
-            else
-                GuessDigit = GuessDigit * 10 + GuessNumber[i];
-            if (_hidRandomDigit == 0 && _copyhidNumber != 0)
+            RememberNumber.Clear();
+            RememberOfPeriod.Clear();
+            GuessDigit = 0;
+            for (int i = 0; i < GuessNumber.Length; i++)
             {
-                RememberOfPeriod.Enqueue(i);
-                RememberNumber.Add(i, GuessNumber[i]);
-                if (GuessNumber[i] != 5)
-                    GuessNumber[i] = 5;
+                int _hidRandomDigit = Random.Range(0, 2);
+                GuessNumber[i] = Random.Range(0, 9);
+                if (GuessDigit == 0)
+                    GuessDigit = GuessNumber[i];
                 else
-                    GuessNumber[i] = 4;
-                _copyhidNumber--;
+                    GuessDigit = GuessDigit * 10 + GuessNumber[i];
+                if (_hidRandomDigit == 0 && _copyhidNumber != 0)
+                {
+                    RememberOfPeriod.Enqueue(i);
+                    RememberNumber.Add(i, GuessNumber[i]);
+                    GuessNumber[i] = 9;
+                    _copyhidNumber--;
+                }
             }
+            if(_copyhidNumber != 0)
+                _copyhidNumber = _hiddenNumber;
         }
         return (GuessDigit, GuessNumber);
     }
@@ -101,26 +129,26 @@ public class StartGame : MonoBehaviour
     {
         int amountWining = 0;
         bool wasWin = false;
-        for (int i = 0; i <= _choiseNumbers.Length; i++)
+        for (int i = 0; i < _choiceNumbers.Length; i++)
         {
-            if (_choiseNumbers[i] == _FirstGuessDigit)
+            if (_choiceNumbers[i] == _FirstGuessDigit)
             {
                 amountWining++;
                 wasWin = true;
             }
-            else if (_choiseNumbers[i] == _SecondGuessDigit)
+            else if (_choiceNumbers[i] == _SecondGuessDigit)
             {
                 amountWining++;
                 wasWin = true;
             }
         }
-        return (wasWin,amountWining);
+        return (wasWin, amountWining);
     }
 
     private void PlayersChouse(int hisNumber)
     {
-        _choiseNumbers[_countOfChouising] = RandomNumbers[hisNumber];
-        _countOfChouising++;
+        _choiceNumbers[_countOfChoosing] = RandomNumbers[hisNumber];
+        _countOfChoosing++;
     }
 
     private void DisclosureNumber(int firstKeyNumber, int secondKeyNumber, int firstValeyOfKey, int secondValeyOfKey)
@@ -133,27 +161,27 @@ public class StartGame : MonoBehaviour
             int SecondSomeNumber = _SecondGuessNumber[i];
             if (firstKeyNumber == i)
             {
-                FirstNameOfNumber = FirstNameOfNumber + firstValeyOfKey;
+                FirstNameOfNumber += firstValeyOfKey;
                 _FirstGuessNumber[i] = firstValeyOfKey;
             }
             else
             {
-                if (FirstSomeNumber == 5 && RememberFirstNumber.ContainsKey(i) && RememberFirstNumber[i] != FirstSomeNumber)
-                    FirstNameOfNumber = FirstNameOfNumber + "*";
+                if (FirstSomeNumber == 9)
+                    FirstNameOfNumber += "*";
                 else
-                    FirstNameOfNumber = FirstNameOfNumber + FirstSomeNumber;
+                    FirstNameOfNumber += FirstSomeNumber;
             }
             if (secondKeyNumber == i)
             {
-                SecondNameOfNumber = SecondNameOfNumber + secondValeyOfKey;
+                SecondNameOfNumber += secondValeyOfKey;
                 _SecondGuessNumber[i] = secondValeyOfKey;
             }
             else
             {
-                if (SecondSomeNumber == 5 && RememberSecondNumber.ContainsKey(i) && RememberSecondNumber[i] != SecondSomeNumber)
-                    SecondNameOfNumber = SecondNameOfNumber + "*";
+                if (SecondSomeNumber == 9)
+                    SecondNameOfNumber += "*";
                 else
-                    SecondNameOfNumber = SecondNameOfNumber + SecondSomeNumber;
+                    SecondNameOfNumber += SecondSomeNumber;
             }
         }
         _textOfSecondHidNumber.text = SecondNameOfNumber;

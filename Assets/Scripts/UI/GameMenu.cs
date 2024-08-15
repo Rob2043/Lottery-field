@@ -16,6 +16,7 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private Button soundToggleButton;
     [SerializeField] private Sprite soundOnSprite;
     [SerializeField] private Sprite soundOffSprite;
+    [SerializeField] private TMP_Text _moneyText;
 
     private bool isSoundActive;
     private const string SoundPreference = "isSoundOn";
@@ -26,6 +27,7 @@ public class LocalMenu : MonoBehaviour
     private void Start()
     {
         InitializeAudioSettings();
+        _moneyText.text = $"{EventBus.GetCoins.Invoke()}";
         Time.timeScale = 1f;
         if (timerSlider != null)
         {

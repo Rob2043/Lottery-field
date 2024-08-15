@@ -17,11 +17,9 @@ public class InputControler : MonoBehaviour
     }
     public void ChoseButton(int numberOfButton)
     {
-        Debug.Log("Work func");
         _clickSound.Play();
         if(_AmountOfTicket != 0)
         {
-            Debug.Log("Work if");
             Instantiate(_chouseTicket, EventBus.GetTransformForBillet.Invoke(numberOfButton));
             EventBus.ChouseNumber.Invoke(numberOfButton);
             _AmountOfTicket--;
