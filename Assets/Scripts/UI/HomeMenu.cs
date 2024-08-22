@@ -11,6 +11,7 @@ public class HomeMenu : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TMP_Text starsText;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject ErrorPanel;
     [Header("Audio Settings")]
     [SerializeField] private AudioSource[] audioClips;
     [SerializeField] private Button soundToggleButton;
@@ -19,6 +20,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private AudioMixer masterAudioMixer;
 
     private bool isSoundActive;
+    private int MinmumCostOfGame = 1000;
 
     private void Start()
     {
@@ -46,7 +48,13 @@ public class HomeMenu : MonoBehaviour
     public void StartGame()
     {
         audioClips[1].Play();
-        EventBus.LodingScene.Invoke("GameScene");
+        if (MinmumCostOfGame <= EventBus.GetCoins.Invoke())
+        {
+            EventBus.SetCoins(-MinmumCostOfGame);
+            EventBus.LodingScene.Invoke("GameScene");
+        }
+        else
+            ErrorPanel.SetActive(true);
     }
 
     public void OpenSettings()

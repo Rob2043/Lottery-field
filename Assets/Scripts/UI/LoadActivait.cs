@@ -11,7 +11,6 @@ public class LoadActivait : MonoBehaviour
     [SerializeField] private GameObject mainmenu;
     [SerializeField] private Slider LoadingSlider;
     private float elapsedTime = 0f;
-    private int MinmumCostOfGame = 1000;
 
     private void Awake()
     {
@@ -30,12 +29,7 @@ public class LoadActivait : MonoBehaviour
         if (mainmenu != null)
             mainmenu.SetActive(false);
         LoadingScreen.SetActive(true);
-
-        if(MinmumCostOfGame <= EventBus.GetCoins.Invoke())
-        {
-            EventBus.SetCoins(-MinmumCostOfGame);
-            StartCoroutine(LoadSceneAsync(levelToLoad));
-        }
+        StartCoroutine(LoadSceneAsync(levelToLoad));
     }
 
     IEnumerator LoadSceneAsync(string levelToLoad)
