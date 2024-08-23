@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using CustomEventBus;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
     public int Coins;
+    public Queue<GameObject> QueueForBuingStuff = new();
     private void Awake()
     {
         EventBus.SetCoins = SetCoins;

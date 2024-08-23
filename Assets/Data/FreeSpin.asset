@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b40adab9c5422c4d8f3c84d72186697, type: 3}
   m_Name: FreeSpin
   m_EditorClassIdentifier: 
+  enums: 2
   _object: {fileID: 0}
+  _nameOfObject: 
   _price: 0
   IsBuy: 0
   IsSelect: 0
