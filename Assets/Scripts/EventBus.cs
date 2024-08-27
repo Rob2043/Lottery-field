@@ -16,5 +16,6 @@ namespace CustomEventBus
         public static Func<(bool, int)> ReadyForCheck;
         public static Action<string> LodingScene;
         public static Action<Enums, string, bool> BuyAction;
+        public static Action<int> AddFreeSpin;
     }
 }

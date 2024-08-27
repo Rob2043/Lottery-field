@@ -34,6 +34,7 @@ public class StuffManager : MonoBehaviour, IBuyObject
             {
                 _textFotBuy.text = $"Selct";
                 EventBus.BuyAction.Invoke(_typeOfStuff, _nameOfStuff, IsBuy);
+                EventBus.SetCoins.Invoke(-Price);
             }
         }
         else if (IsSelect == false)

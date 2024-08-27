@@ -5,7 +5,9 @@ using UnityEngine;
 public class ObjectForBuy : ScriptableObject
 {
     [SerializeField] public Enums enums;
-    [SerializeField] public GameObject _object;
+    [SerializeField] public AudioClip Music;
+    [SerializeField] public Sprite Background;
+    [SerializeField] public int AmountOfFreeSpins;
     [SerializeField] public string _nameOfObject;
     [SerializeField] public int _price;
     public bool IsBuy;

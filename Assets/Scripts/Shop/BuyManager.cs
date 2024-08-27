@@ -1,19 +1,31 @@
+using System;
 using System.Collections.Generic;
 using CustomEventBus;
 using CustomInterfase;
 using StuffEnums;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _arrayOfStuff;
     [SerializeField] private ObjectForBuy[] _objectForBuys;
+    [SerializeField] private Image _mainBackgroundImage;
+    [SerializeField] private AudioSource _mainAudio;
     private Dictionary<Enums, List<ObjectForBuy>> dataOfStuff = new Dictionary<Enums, List<ObjectForBuy>>(3);
     IBuyObject buyObject;
 
     private void Awake()
     {
         EventBus.BuyAction = BuyStuff;
+        for (int i = 0; i < _objectForBuys.Length; i++)
+        {
+            List<ObjectForBuy> newList = new();
+            newList.Add(_objectForBuys[i]);
+            if (dataOfStuff.ContainsKey(_objectForBuys[i].enums))
+                dataOfStuff[_objectForBuys[i].enums].Add(_objectForBuys[i]);
+            else dataOfStuff.Add(_objectForBuys[i].enums, newList);
+        }
         LoadData();
         UpdateData();
     }
@@ -28,8 +40,7 @@ public class BuyManager : MonoBehaviour
                 buyObject.IsBuy = _objectForBuys[i].IsBuy;
                 buyObject.IsSelect = _objectForBuys[i].IsSelect;
                 buyObject.Price = _objectForBuys[i]._price;
-                buyObject._buyObject = _objectForBuys[i]._object;
-                buyObject._nameOfStuff = _objectForBuys[i]._object.name;
+                buyObject._nameOfStuff = _objectForBuys[i]._nameOfObject;
                 buyObject.SetDataOfStuff();
             }
         }
@@ -37,26 +48,33 @@ public class BuyManager : MonoBehaviour
     private void BuyStuff(Enums enumOfBuyObject, string NameOfStuff, bool WasSelect)
     {
         List<ObjectForBuy> data = dataOfStuff[enumOfBuyObject];
-        for (int i = 0; i < data.Count; i++)
+        if (enumOfBuyObject == Enums.freespin)
         {
-            if (NameOfStuff == data[i]._nameOfObject)
-            {
-                data[i].IsBuy = true;
-                if (WasSelect == true)
+            for (int i = 0; i < data.Count; i++)
+                if (NameOfStuff == data[i]._nameOfObject)
+                    EventBus.AddFreeSpin.Invoke(data[i].AmountOfFreeSpins);
+        }
+        else
+        {
+            for (int i = 0; i < data.Count; i++)
+                if (NameOfStuff == data[i]._nameOfObject)
                 {
-                    data[i].IsSelect = true;
-                    GameObject gameObject = Instantiate(data[i]._object);
-                    Iinstance.instance.QueueForBuingStuff.Enqueue(gameObject);
+                    data[i].IsBuy = true;
+                    if (WasSelect == true)
+                    {
+                        data[i].IsSelect = true;
+                        switch (enumOfBuyObject)
+                        {
+                            case Enums.music:
+                                _mainAudio.clip = data[0].Music;
+                                break;
+                            case Enums.background:
+                                _mainBackgroundImage.sprite = data[i].Background;
+                                break;
+                        }
+                    }
                 }
-                else
-                {
-                    data[i].IsSelect = false;
-                    GameObject gameObject = Iinstance.instance.QueueForBuingStuff.Dequeue();
-                    Destroy(gameObject);
-                }
-            }
-            else
-                data[i].IsSelect = false;
+                else data[i].IsBuy = false;
         }
         UpdateData();
         SaveData();
@@ -88,20 +106,12 @@ public class BuyManager : MonoBehaviour
                 if (PlayerPrefs.GetInt($"{_objectForBuys[i].name}WasSelect", 0) == 1)
                 {
                     _objectForBuys[i].IsSelect = true;
-                    GameObject gameObject = Instantiate(_objectForBuys[i]._object);
-                    Iinstance.instance.QueueForBuingStuff.Enqueue(gameObject);
+                    BuyStuff(_objectForBuys[i].enums, _objectForBuys[i]._nameOfObject, _objectForBuys[i].IsSelect);
                 }
                 else
-                {
                     _objectForBuys[i].IsSelect = false;
-                    GameObject gameObject = Iinstance.instance.QueueForBuingStuff.Dequeue();
-                    Destroy(gameObject);
-                }
             }
-            else
-            {
-                _objectForBuys[i].IsBuy = true;
-            }
+            else _objectForBuys[i].IsBuy = false;
         }
     }
 }
