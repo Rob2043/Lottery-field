@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b40adab9c5422c4d8f3c84d72186697, type: 3}
   m_Name: Music
   m_EditorClassIdentifier: 
-  _object: {fileID: 0}
-  _price: 0
-  IsBuy: 0
-  IsSelect: 0
+  enums: 0
+  Music: {fileID: 8300000, guid: a61409ac7d8bf9341b2b1e8deca78f0a, type: 3}
+  Background: {fileID: 0}
+  AmountOfFreeSpins: 0
+  _nameOfObject: Music
+  _price: 5000
+  IsBuy: 1
+  IsSelect: 1

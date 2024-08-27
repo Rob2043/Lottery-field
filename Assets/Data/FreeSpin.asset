@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: FreeSpin
   m_EditorClassIdentifier: 
   enums: 2
-  _object: {fileID: 0}
-  _nameOfObject: 
-  _price: 0
+  Music: {fileID: 0}
+  Background: {fileID: 0}
+  AmountOfFreeSpins: 5
+  _nameOfObject: Free Spin 5
+  _price: 5000
   IsBuy: 0
   IsSelect: 0
