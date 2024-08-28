@@ -8,13 +8,15 @@ public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
     public int Coins;
-    public Queue<GameObject> QueueForBuingStuff = new();
+    public int FreeSpins;
     private void Awake()
     {
         EventBus.SetCoins = SetCoins;
         EventBus.GetCoins = GetCoins;
+        EventBus.AddFreeSpin = SetFreeSpin;
         Application.targetFrameRate = 60;
-        Coins = PlayerPrefs.GetInt("Money", 10000);
+        Coins = PlayerPrefs.GetInt("Money", 1000);
+        FreeSpins = PlayerPrefs.GetInt("FreeSpin", 0);
         PlayerPrefs.SetInt("ChooseCount", 0);
         if (instance == null)
         {
@@ -27,10 +29,8 @@ public class Iinstance : MonoBehaviour
             return;
         }
     }
-    private void SetCoins(int Amount)
-    {
-        Coins += Amount;
-    }
+    private void SetCoins(int Amount) => Coins += Amount;
+    private void SetFreeSpin(int Amount) => FreeSpins += Amount;
     private int GetCoins()
     {
         return Coins;
@@ -38,5 +38,7 @@ public class Iinstance : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("Money", Coins);
+        PlayerPrefs.SetInt("FreeSpin", FreeSpins);
+        PlayerPrefs.Save();
     }
 }

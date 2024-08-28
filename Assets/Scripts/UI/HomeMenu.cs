@@ -20,7 +20,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private AudioMixer masterAudioMixer;
 
     private bool isSoundActive;
-    private int MinmumCostOfGame = 1000;
+    private int MinmumCostOfGame = 100;
 
     private void Start()
     {
