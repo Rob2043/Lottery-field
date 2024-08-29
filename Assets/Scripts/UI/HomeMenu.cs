@@ -12,6 +12,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private TMP_Text starsText;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject ErrorPanel;
+    [SerializeField] private GameObject SpinPanel;
     [Header("Audio Settings")]
     [SerializeField] private AudioSource[] audioClips;
     [SerializeField] private Button soundToggleButton;
@@ -63,6 +64,12 @@ public class HomeMenu : MonoBehaviour
         settingsPanel.SetActive(true);
     }
 
+    public void OpenSpin()
+    {
+        SpinPanel.SetActive(true);
+        EventBus.FreeSpin.Invoke(true);
+        ErrorPanel.SetActive(false);
+    }
     public void ToggleSound()
     {
         isSoundActive = !isSoundActive;

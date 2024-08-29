@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CustomEventBus;
 using CustomInterfase;
 using StuffEnums;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,14 @@ public class BuyManager : MonoBehaviour
     [SerializeField] private ObjectForBuy[] _objectForBuys;
     [SerializeField] private Image _mainBackgroundImage;
     [SerializeField] private AudioSource _mainAudio;
+    [SerializeField] private TMP_Text _textOfMoney;
+
     private Dictionary<Enums, List<ObjectForBuy>> dataOfStuff = new Dictionary<Enums, List<ObjectForBuy>>(3);
     IBuyObject buyObject;
 
     private void Awake()
     {
+        _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
         EventBus.BuyAction = BuyStuff;
         for (int i = 0; i < _objectForBuys.Length; i++)
         {
@@ -32,6 +36,7 @@ public class BuyManager : MonoBehaviour
 
     private void UpdateData()
     {
+        _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
         for (int i = 0; i < _arrayOfStuff.Length; i++)
         {
             if (_arrayOfStuff[i].TryGetComponent(out buyObject))
