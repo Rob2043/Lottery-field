@@ -6,9 +6,12 @@ using UnityEngine;
 
 public class Iinstance : MonoBehaviour
 {
+    private const int AmountOfTask = 3;
     public static Iinstance instance;
     public int Coins;
     public int FreeSpins;
+    public Dictionary<string, int> TypesOfTask = new(AmountOfTask);
+    public string[] ArrayOfNameTask = new string[AmountOfTask];
     private void Awake()
     {
         EventBus.SetCoins = SetCoins;

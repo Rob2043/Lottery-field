@@ -5,16 +5,19 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     private const int AmountOfTask = 3;
+    [Header("Options For Algorithm")]
     [SerializeField] private string[] _arrayOfNameTask = new string[AmountOfTask];
     [SerializeField] private int[] _arrayOfBasicReward = new int[AmountOfTask];
     [SerializeField] private int[] _arrayOfBasicGoat = new int[AmountOfTask];
     private Dictionary<string, int> _typesOfTask = new(AmountOfTask);
-    private Dictionary<string, int> _ResultOfTask = new(AmountOfTask);
     private int[] _arrayOfReward = new int[AmountOfTask];
 
     private void Start()
     {
+        Iinstance.instance.ArrayOfNameTask = _arrayOfNameTask;
         UpdateTask();
+        Iinstance.instance.TypesOfTask = _typesOfTask;
+
     }
     private void UpdateTask()
     {
@@ -33,15 +36,14 @@ public class TaskManager : MonoBehaviour
                     randomNumber = Random.Range(1, 6);
                     break;
             }
-            if (PlayerPrefs.GetInt($"TaskWasCollecting{i}", 0) == 1)
+            if (PlayerPrefs.GetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 0) == 1)
             {
-                _ResultOfTask.Add(_arrayOfNameTask[i], 0);
                 _typesOfTask.Add(_arrayOfNameTask[i], randomNumber);
                 PlayerPrefs.SetInt($"LastRandomNumber{i}", randomNumber);
             }
             else
             {
-                _ResultOfTask.Add(_arrayOfNameTask[i], PlayerPrefs.GetInt($"ResultOfTask{i}",0));
+                //_ResultOfTask.Add(_arrayOfNameTask[i], PlayerPrefs.GetInt($"{_arrayOfNameTask[i]}ResultOfTask",0));
                 randomNumber = PlayerPrefs.GetInt($"LastRandomNumber{i}");
                 _typesOfTask.Add(_arrayOfNameTask[i], randomNumber);
             }
@@ -50,4 +52,6 @@ public class TaskManager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
+    
 }
