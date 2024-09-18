@@ -127,6 +127,7 @@ public class StartGame : MonoBehaviour
 
     private (bool, int) CheckWining()
     {
+        
         int amountWining = 0;
         bool wasWin = false;
         for (int i = 0; i < _choiceNumbers.Length; i++)
@@ -141,6 +142,7 @@ public class StartGame : MonoBehaviour
                 amountWining++;
                 wasWin = true;
             }
+            EventBus.CheckTask(_choiceNumbers[i],i);
         }
         return (wasWin, amountWining);
     }

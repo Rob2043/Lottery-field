@@ -25,16 +25,12 @@ public class HomeMenu : MonoBehaviour
 
     private void Start()
     {
-        InitializeMenu();
+        EventBus.UpdateMoney = UpdaeteMoney;
+        UpdaeteMoney();
+        Time.timeScale = 1f;
         InitializeAudioSettings();
     }
-
-    private void InitializeMenu()
-    {
-        starsText.text = $"{Iinstance.instance.Coins}";
-        Time.timeScale = 1f;
-    }
-
+    private void UpdaeteMoney() => starsText.text = $"{Iinstance.instance.Coins}";
     private void InitializeAudioSettings()
     {
         isSoundActive = PlayerPrefs.GetInt("isSoundOn", 1) == 1;
