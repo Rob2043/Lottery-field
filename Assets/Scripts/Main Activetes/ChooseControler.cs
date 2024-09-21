@@ -5,11 +5,16 @@ using CustomEventBus;
 public class ChooseControler : MonoBehaviour
 {
     [SerializeField] private float _time = 30;
+    [Header("Texts")]
     [SerializeField] private TMP_Text _textOfTime;
     [SerializeField] private TMP_Text _textOfMoney;
     [SerializeField] private TMP_Text _textOfPriceMoney;
-    [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private TMP_Text _resultText;
+    [Header("Others")]
+    [SerializeField] private GameObject _endGamePanel;
+    [SerializeField] private GameObject _rewardText;
+    [SerializeField] private GameObject _winImage;
+    [SerializeField] private ParticleSystem _confetti;
     private int _timeForUnhid = 20;
     private int _winScore = 10000;
     private bool _wasChousing = false;
@@ -38,14 +43,20 @@ public class ChooseControler : MonoBehaviour
             (bool wasWin, int value) =  EventBus.ReadyForCheck.Invoke();
             if (wasWin == true)
             {
+                _winImage.SetActive(false); 
                 int price = _winScore * value;
                 EventBus.SetCoins(price);
                 _resultText.text = "You Won!";
                 _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
                 _textOfPriceMoney.text = $"{price}";
+                _confetti.Play();
             }
             else
+            {
+                _rewardText.SetActive(false);
                 _resultText.text = "You Lose";
+            }
+                
             _endGamePanel.SetActive(true);
             _wasWin = true;
         }
