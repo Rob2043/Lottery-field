@@ -10,6 +10,8 @@ public class HomeMenu : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private TMP_Text starsText;
+    [SerializeField] private TMP_Text _secondStarsText;
+    [SerializeField] private TMP_Text _thirdStarsText;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject ErrorPanel;
     [SerializeField] private GameObject SpinPanel;
@@ -30,7 +32,12 @@ public class HomeMenu : MonoBehaviour
         Time.timeScale = 1f;
         InitializeAudioSettings();
     }
-    private void UpdaeteMoney() => starsText.text = $"{Iinstance.instance.Coins}";
+    private void UpdaeteMoney()
+    {
+        starsText.text = $"{Iinstance.instance.Coins}";
+        _secondStarsText.text = $"{Iinstance.instance.Coins}";
+        _thirdStarsText.text = $"{Iinstance.instance.Coins}";
+    }
     private void InitializeAudioSettings()
     {
         isSoundActive = PlayerPrefs.GetInt("isSoundOn", 1) == 1;

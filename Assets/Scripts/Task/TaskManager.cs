@@ -46,12 +46,14 @@ public class TaskManager : MonoBehaviour
                     randomNumber = Random.Range(1, 6);
                     break;
             }
+            Debug.Log(randomNumber);
             if (PlayerPrefs.GetInt($"{_arrayOfNameTask[count]}TaskWasCollecting{count}", 0) == 0)
             {
                 float number = PlayerPrefs.GetFloat($"LastRandomNumber{count}", 0);
                 _typesOfTask.Add(_arrayOfNameTask[count], number);
                 PlayerPrefs.SetFloat($"LastRandomNumber{count}", number);
                 randomNumber = number;
+                Debug.Log(randomNumber);
             }
             else
             {
@@ -83,13 +85,15 @@ public class TaskManager : MonoBehaviour
                 chooseNumber = Random.Range(1, 6);
                 break;
         }
-        PlayerPrefs.SetFloat($"LastRandomNumber{count}", chooseNumber);
-        _typesOfTask.Add(_arrayOfNameTask[periodOfTask], chooseNumber);
+        PlayerPrefs.SetFloat($"LastRandomNumber{periodOfTask}", chooseNumber);
+        _typesOfTask[_arrayOfNameTask[periodOfTask]] = chooseNumber;
         float percent = chooseNumber / _arrayOfBasicGoat[periodOfTask];
         _arrayOfReward[periodOfTask] = (int)(_arrayOfBasicReward[periodOfTask] * percent);
         _rewardsTexts[periodOfTask].text = $"{_arrayOfReward[periodOfTask]}";
         _goatTexts[periodOfTask].text = $"{chooseNumber}";
         chooseNumber = 0;
+        _buttonsForGetMoney[periodOfTask].interactable = false;
+        PlayerPrefs.SetInt($"{_arrayOfNameTask[periodOfTask]}TaskWasCollecting{periodOfTask}", 0);
         PlayerPrefs.Save();
     }
 }

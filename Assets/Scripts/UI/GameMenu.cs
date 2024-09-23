@@ -89,9 +89,14 @@ public class LocalMenu : MonoBehaviour
     public void ReturnToMainMenu()
     {
         audioSources[1].Play();
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 
+    public void Again()
+    {
+        audioSources[1].Play();
+        SceneManager.LoadScene("GameScene");
+    }
     public void ShowExitPanel()
     {
         Time.timeScale = 0f;

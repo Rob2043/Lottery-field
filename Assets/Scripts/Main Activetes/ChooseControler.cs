@@ -16,7 +16,7 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private GameObject _winImage;
     [SerializeField] private ParticleSystem _confetti;
     private int _timeForUnhid = 20;
-    private int _winScore = 10000;
+    private int _winScore = 1000;
     private bool _wasChousing = false;
     private bool _wasWin = false;
 
@@ -42,8 +42,7 @@ public class ChooseControler : MonoBehaviour
         {
             (bool wasWin, int value) =  EventBus.ReadyForCheck.Invoke();
             if (wasWin == true)
-            {
-                _winImage.SetActive(false); 
+            {     
                 int price = _winScore * value;
                 EventBus.SetCoins(price);
                 _resultText.text = "You Won!";
@@ -53,6 +52,7 @@ public class ChooseControler : MonoBehaviour
             }
             else
             {
+                _winImage.SetActive(false); 
                 _rewardText.SetActive(false);
                 _resultText.text = "You Lose";
             }

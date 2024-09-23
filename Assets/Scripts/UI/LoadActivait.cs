@@ -16,7 +16,7 @@ public class LoadActivait : MonoBehaviour
     {
         if (mainmenu == null)
         {
-            LoadLevel("Menu");
+            LoadLevel("MainMenu");
         }
     }
 

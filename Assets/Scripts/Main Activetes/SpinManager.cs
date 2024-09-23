@@ -60,6 +60,7 @@ public class SpinManager : MonoBehaviour
          _textOfMoneyWin.text = $"{wheelPiece.Amount}";
          EventBus.SetCoins.Invoke(wheelPiece.Amount);
          _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
+         EventBus.UpdateMoney.Invoke();
       });
       pickerWheel.Spin();
    }
