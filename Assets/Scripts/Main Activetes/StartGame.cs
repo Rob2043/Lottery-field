@@ -29,6 +29,8 @@ public class StartGame : MonoBehaviour
     private int _hiddenNumber = 5;
     private int RandomPeriodFirstNumber = 0;
     private int RandomPeriodSecondNumber = 0;
+    private int firstfalseNumber = 0;
+    private int secondfalseNumber = 0;
     #endregion RandomsNumbers
 
     private void Awake()
@@ -46,23 +48,41 @@ public class StartGame : MonoBehaviour
         }
         (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
         (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
+        bool firstCheck = false;
+        bool secondCheck = false;
+        while (firstCheck == false & secondCheck == false)
+        {
+            firstfalseNumber = Random.Range(0, 9);
+            if (RandomPeriodFirstNumber != firstfalseNumber)
+                firstCheck = true;
+            secondfalseNumber = Random.Range(0, 9);
+            if (RandomPeriodSecondNumber != secondfalseNumber)
+                secondCheck = true;
+        }
         for (int i = 0; i < RandomNumbers.Length; i++)
         {
             int _randomNumber = RandomNumbers[i];
-            if (i == RandomPeriodFirstNumber)
-                _randomNumber = _FirstGuessDigit;
-            else if (i == RandomPeriodSecondNumber)
-                _randomNumber = _SecondGuessDigit;
+            if (firstfalseNumber == i)
+                _randomNumber = ChangeGuestNumber(1);
+            else if (secondfalseNumber == i)
+                _randomNumber = ChangeGuestNumber(2);
             else
             {
-                int _guessRandomDigit = 0;
-                for (int j = 0; j < _countOfNumbers; j++)
+                if (i == RandomPeriodFirstNumber)
+                    _randomNumber = _FirstGuessDigit;
+                else if (i == RandomPeriodSecondNumber)
+                    _randomNumber = _SecondGuessDigit;
+                else
                 {
-                    _guessRandomDigit = Random.Range(0, 9);
-                    if (_randomNumber == 0)
-                        _randomNumber = _guessRandomDigit;
-                    else
-                        _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
+                    int _guessRandomDigit = 0;
+                    for (int j = 0; j < _countOfNumbers; j++)
+                    {
+                        _guessRandomDigit = Random.Range(0, 9);
+                        if (_randomNumber == 0)
+                            _randomNumber = _guessRandomDigit;
+                        else
+                            _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
+                    }
                 }
             }
             _arrayTextNumbers[i].text = $"{_randomNumber}";
@@ -84,6 +104,38 @@ public class StartGame : MonoBehaviour
         EventBus.SetPlayersChouse -= PlayersChouse;
         EventBus.ReadyForCheck -= CheckWining;
     }
+    private int ChangeGuestNumber(int period)
+    {
+        int _guessNumber = 0;
+        switch (period)
+        {
+            case 1:
+                _guessNumber = _FirstGuessDigit;
+                break;
+            case 2:
+                _guessNumber = _SecondGuessDigit;
+                break;
+        }
+        int originalGuessNumber = _guessNumber;
+        int _periodNumberForChange = Random.Range(0, _countOfNumbers);
+        int _numberForChange = Random.Range(0, _countOfNumbers);
+        int currentPosition = 0;
+        int resultNumber = 0;
+        int multiplier = 1;
+        for (; originalGuessNumber > 0; originalGuessNumber /= 10)
+        {
+            int currentDigit = originalGuessNumber % 10;
+
+            if (currentPosition == _periodNumberForChange)
+                currentDigit = _numberForChange;
+
+            resultNumber += currentDigit * multiplier;
+            multiplier *= 10;
+            currentPosition++;
+        }
+        return resultNumber;
+    }
+
     private (int GuessDigit, int[] GuessNumber) IninizializationNumber(int[] GuessNumber, int GuessDigit, Queue<int> RememberOfPeriod, Dictionary<int, int> RememberNumber)
     {
         int _copyhidNumber = _hiddenNumber;
@@ -108,7 +160,7 @@ public class StartGame : MonoBehaviour
                     _copyhidNumber--;
                 }
             }
-            if(_copyhidNumber != 0)
+            if (_copyhidNumber != 0)
                 _copyhidNumber = _hiddenNumber;
         }
         return (GuessDigit, GuessNumber);
@@ -127,7 +179,7 @@ public class StartGame : MonoBehaviour
 
     private (bool, int) CheckWining()
     {
-        
+
         int amountWining = 0;
         bool wasWin = false;
         for (int i = 0; i < _choiceNumbers.Length; i++)
@@ -142,7 +194,7 @@ public class StartGame : MonoBehaviour
                 amountWining++;
                 wasWin = true;
             }
-            EventBus.CheckTask(_choiceNumbers[i],i);
+            EventBus.CheckTask(_choiceNumbers[i], i);
         }
         return (wasWin, amountWining);
     }
