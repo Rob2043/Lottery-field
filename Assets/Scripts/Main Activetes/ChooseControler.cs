@@ -26,6 +26,7 @@ public class ChooseControler : MonoBehaviour
     }
     private void Update()
     {
+        if(PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 1)
         if (_time >= 0)
         {
             _time -= Time.deltaTime;
