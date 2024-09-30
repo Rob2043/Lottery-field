@@ -12,7 +12,6 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private AudioSource[] audioSources;
     [SerializeField] private AudioMixer mainAudioMixer;
-    [SerializeField] private Slider timerSlider;
     [SerializeField] private Button soundToggleButton;
     [SerializeField] private Sprite soundOnSprite;
     [SerializeField] private Sprite soundOffSprite;
@@ -29,23 +28,6 @@ public class LocalMenu : MonoBehaviour
         InitializeAudioSettings();
         _moneyText.text = $"{EventBus.GetCoins.Invoke()}";
         Time.timeScale = 1f;
-        if (timerSlider != null)
-        {
-            timerSlider.maxValue = totalTime;
-            timerSlider.value = totalTime;
-            StartCoroutine(StartCountdown());
-        }
-    }
-
-    private IEnumerator StartCountdown()
-    {
-        float timeLeft = totalTime;
-        while (timeLeft > 0)
-        {
-            timeLeft -= Time.deltaTime;
-            timerSlider.value = timeLeft;
-            yield return null;
-        }
     }
     public void ToggleSound()
     {

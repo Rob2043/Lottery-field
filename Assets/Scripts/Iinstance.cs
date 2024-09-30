@@ -14,6 +14,11 @@ public class Iinstance : MonoBehaviour
     public string[] ArrayOfNameTask = new string[AmountOfTask];
     private void Awake()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
+        Screen.autorotateToPortrait = true;
+        Screen.autorotateToPortraitUpsideDown = true;
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
         EventBus.SetCoins = SetCoins;
         EventBus.GetCoins = GetCoins;
         EventBus.AddFreeSpin = SetFreeSpin;

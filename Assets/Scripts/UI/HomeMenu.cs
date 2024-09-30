@@ -15,6 +15,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private GameObject ErrorPanel;
     [SerializeField] private GameObject SpinPanel;
     [SerializeField] private GameObject TaskPanel;
+    [SerializeField] private GameObject TutorialPanel;
     [Header("Audio Settings")]
     [SerializeField] private AudioSource[] audioClips;
     [SerializeField] private Button soundToggleButton;
@@ -56,7 +57,11 @@ public class HomeMenu : MonoBehaviour
         {
             audioClips[1].Play();
             if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
+            {
                 PlayerPrefs.SetInt("TutorialCompletedPart1", 1);
+                TutorialPanel.SetActive(false);
+            }
+                
             if (MinmumCostOfGame <= EventBus.GetCoins.Invoke())
             {
                 EventBus.SetCoins(-MinmumCostOfGame);

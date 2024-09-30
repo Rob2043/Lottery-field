@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    const int numberForStartPart2 = 1;
+    const int numberForStartPart2 = 2;
+    const int endForTutorial = 11;
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private Image[] _buttons;
     [SerializeField] private GameObject _chosePanel;
@@ -15,9 +16,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TMP_Text _textForTutorial;
     [SerializeField] private AudioSource _writingTextSound;
     [SerializeField] private Button _buttonForSwitchText;
-
+    private bool isCoroutineRunning = false;
     int _countOfTutorials = 0;
     string lightColor = "FFAAAA";
+
     private void Start()
     {
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
@@ -35,7 +37,17 @@ public class TutorialManager : MonoBehaviour
         }
 
     }
-    private void OutButton() => StartCoroutine(NextText());
+    public void StartTutotial()
+    {
+        _chosePanel.SetActive(false);
+        _tutorialPanel.SetActive(true);
+        OutButton();
+    }
+    public void OutButton()
+    {
+        if (!isCoroutineRunning)
+            StartCoroutine(NextText());
+    }
     private bool CheckPlaing()
     {
         bool result = false;
@@ -43,7 +55,7 @@ public class TutorialManager : MonoBehaviour
         {
             2 => true,
             3 => true,
-            8 => true,
+            9 => true,
             _ => false,
         };
         if (result == true)
@@ -57,11 +69,13 @@ public class TutorialManager : MonoBehaviour
     {
         if (_countOfTutorials < numberForStartPart2 || PlayerPrefs.GetInt("TutorialCompletedPart2", 1) == 1)
         {
+            isCoroutineRunning = true;
             _textForTutorial.text = "";
             _countOfTutorials++;
             switch (_countOfTutorials)
             {
                 case 2:
+                case 3:
                     _buttonForSwitchText.interactable = false;
                     break;
                 case 7:
@@ -72,7 +86,7 @@ public class TutorialManager : MonoBehaviour
                             _buttons[i].color = newColor;
                     }
                     break;
-                case 8:
+                case 9:
                     _taskPanel.SetActive(false);
                     for (int i = 0; i < _buttons.Length; i++)
                         _buttons[i].color = Color.white;
@@ -86,6 +100,13 @@ public class TutorialManager : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.02f);
             }
         }
+        else if (_countOfTutorials == endForTutorial)
+        {
+            PlayerPrefs.GetInt("TutorialCompleted", 1);
+            _tutorialPanel.SetActive(true);
+        }
+        PlayerPrefs.Save();
         _writingTextSound.Stop();
+        isCoroutineRunning = false;
     }
 }
