@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enums: 1
   Music: {fileID: 0}
-  Background: {fileID: 0}
+  Background: {fileID: 21300000, guid: 5038ce164cb4c0444bfbd5c307922cd4, type: 3}
   AmountOfFreeSpins: 0
   _nameOfObject: Bacground 2
   _price: 10000
-  IsBuy: 0
-  IsSelect: 0
+  IsBuy: 1
+  IsSelect: 1

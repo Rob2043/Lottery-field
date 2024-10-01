@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LocalMenu : MonoBehaviour
 {
+    private const string SoundPreference = "isSoundOn";
+    private const float VolumeOn = 0f;
+    private const float VolumeOff = -80f;
     [SerializeField] private GameObject exitPanel;
     [SerializeField] private GameObject gameDisplayPanel;
     [SerializeField] private GameObject endGamePanel;
@@ -17,10 +20,8 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private Sprite soundOffSprite;
     [SerializeField] private TMP_Text _moneyText;
 
-    private bool isSoundActive;
-    private const string SoundPreference = "isSoundOn";
-    private const float VolumeOn = 0f;
-    private const float VolumeOff = -80f;
+    private bool isSoundActive = false;
+
     public float totalTime = 30f;
 
     private void Start()
@@ -37,8 +38,8 @@ public class LocalMenu : MonoBehaviour
         {
             audio.enabled = isSoundActive;
         }
-        mainAudioMixer.SetFloat("MasterVolume", isSoundActive ? 0f : -80f);
-        PlayerPrefs.SetInt("isSoundOn", isSoundActive ? 1 : 0);
+        mainAudioMixer.SetFloat("MasterVolume", isSoundActive ? VolumeOn: VolumeOff);
+        PlayerPrefs.SetInt(SoundPreference, isSoundActive ? 1 : 0);
         PlayerPrefs.Save();
         soundToggleButton.image.sprite = isSoundActive ? soundOnSprite : soundOffSprite;
     }
@@ -47,7 +48,7 @@ public class LocalMenu : MonoBehaviour
         audioSources[1].Play();
         exitPanel.SetActive(true);
     }
-    
+
     public void CloseSettings()
     {
         audioSources[1].Play();

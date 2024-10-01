@@ -50,7 +50,7 @@ public class BuyManager : MonoBehaviour
             }
         }
     }
-    private void BuyStuff(Enums enumOfBuyObject, string NameOfStuff, bool WasSelect)
+    private void BuyStuff(Enums enumOfBuyObject, string NameOfStuff)
     {
         List<ObjectForBuy> data = dataOfStuff[enumOfBuyObject];
         if (enumOfBuyObject == Enums.freespin)
@@ -65,21 +65,20 @@ public class BuyManager : MonoBehaviour
                 if (NameOfStuff == data[i]._nameOfObject)
                 {
                     data[i].IsBuy = true;
-                    if (WasSelect == true)
+                    data[i].IsSelect = true;
+                    switch (enumOfBuyObject)
                     {
-                        data[i].IsSelect = true;
-                        switch (enumOfBuyObject)
-                        {
-                            case Enums.music:
-                                _mainAudio.clip = data[0].Music;
-                                break;
-                            case Enums.background:
-                                _mainBackgroundImage.sprite = data[i].Background;
-                                break;
-                        }
+                        case Enums.music:
+                            _mainAudio.clip = data[0].Music;
+                            _mainAudio.Play();
+                            break;
+                        case Enums.background:
+                            _mainBackgroundImage.sprite = data[i].Background;
+                            break;
                     }
                 }
-                else data[i].IsBuy = false;
+                else
+                    data[i].IsSelect = false;
         }
         UpdateData();
         SaveData();
@@ -111,7 +110,7 @@ public class BuyManager : MonoBehaviour
                 if (PlayerPrefs.GetInt($"{_objectForBuys[i].name}WasSelect", 0) == 1)
                 {
                     _objectForBuys[i].IsSelect = true;
-                    BuyStuff(_objectForBuys[i].enums, _objectForBuys[i]._nameOfObject, _objectForBuys[i].IsSelect);
+                    BuyStuff(_objectForBuys[i].enums, _objectForBuys[i]._nameOfObject);
                 }
                 else
                     _objectForBuys[i].IsSelect = false;

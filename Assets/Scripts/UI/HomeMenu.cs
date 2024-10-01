@@ -42,7 +42,7 @@ public class HomeMenu : MonoBehaviour
     }
     private void InitializeAudioSettings()
     {
-        isSoundActive = PlayerPrefs.GetInt("isSoundOn", 1) == 1;
+        isSoundActive = PlayerPrefs.GetInt("isSoundOn", 0) == 1;
         audioClips[1].Play();
         foreach (var audio in audioClips)
         {
@@ -53,15 +53,21 @@ public class HomeMenu : MonoBehaviour
 
     public void StartGame()
     {
-        if (EventBus.CanPlay.Invoke() == true)
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            audioClips[1].Play();
-            if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
+            if (EventBus.CanPlay.Invoke() == true)
             {
-                PlayerPrefs.SetInt("TutorialCompletedPart1", 1);
-                TutorialPanel.SetActive(false);
+                audioClips[1].Play();
+                if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
+                {
+                    PlayerPrefs.SetInt("TutorialCompletedPart1", 1);
+                    TutorialPanel.SetActive(false);
+                }
+                EventBus.LodingScene.Invoke("GameScene");
             }
-                
+        }
+        else
+        {
             if (MinmumCostOfGame <= EventBus.GetCoins.Invoke())
             {
                 EventBus.SetCoins(-MinmumCostOfGame);
@@ -74,11 +80,16 @@ public class HomeMenu : MonoBehaviour
     }
     public void OpenTask()
     {
-        if (EventBus.CanPlay.Invoke() == true)
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            TaskPanel.SetActive(true);
-            EventBus.NextTextForTutorial.Invoke();
+            if (EventBus.CanPlay.Invoke() == true)
+            {
+                TaskPanel.SetActive(true);
+            }
+
         }
+        else
+            TaskPanel.SetActive(true);
     }
     public void OpenSettings()
     {
@@ -88,22 +99,21 @@ public class HomeMenu : MonoBehaviour
 
     public void OpenSpin()
     {
-        if (PlayerPrefs.GetInt("TutorialCompletedPart2", 1) == 1)
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             if (EventBus.CanPlay.Invoke() == true)
             {
                 SpinPanel.SetActive(true);
-                EventBus.NextTextForTutorial.Invoke();
-                PlayerPrefs.SetInt("TutorialCompleted",1);
-                PlayerPrefs.Save();
             }
         }
         else
-        {
             SpinPanel.SetActive(true);
-            EventBus.FreeSpin.Invoke(true);
-            ErrorPanel.SetActive(false);
-        }
+    }
+    public void GiveMoney()
+    {
+        SpinPanel.SetActive(true);
+        EventBus.FreeSpin.Invoke(true);
+        ErrorPanel.SetActive(false);
     }
     public void ToggleSound()
     {

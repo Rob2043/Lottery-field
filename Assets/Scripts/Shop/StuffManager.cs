@@ -32,15 +32,16 @@ public class StuffManager : MonoBehaviour, IBuyObject
         {
             if (Price <= EventBus.GetCoins.Invoke())
             {
-                _textFotBuy.text = $"Selct";
-                EventBus.BuyAction.Invoke(_typeOfStuff, _nameOfStuff, IsBuy);
+                _textFotBuy.text = $"Selected";
+                EventBus.BuyAction.Invoke(_typeOfStuff, _nameOfStuff);
                 EventBus.SetCoins.Invoke(-Price);
+                EventBus.UpdateMoney.Invoke();
             }
         }
         else if (IsSelect == false)
         {
-            EventBus.BuyAction.Invoke(_typeOfStuff, _nameOfStuff, IsBuy);
-            _textFotBuy.text = $"Selcted";
+            EventBus.BuyAction.Invoke(_typeOfStuff, _nameOfStuff);
+            _textFotBuy.text = $"Selected";
         }
     }
 }

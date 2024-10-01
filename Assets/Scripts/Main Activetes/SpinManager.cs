@@ -3,8 +3,6 @@ using EasyUI.PickerWheelUI;
 using UnityEngine.UI;
 using CustomEventBus;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine.Rendering;
 
 public class SpinManager : MonoBehaviour
 {
@@ -20,12 +18,12 @@ public class SpinManager : MonoBehaviour
    private int _freeSpins;
    private int _minimumForStart = 600;
 
-   private void Start()
+   private void Awake()
    {
       _textOfFreeSpin.text = $"{Iinstance.instance.FreeSpins}";
       EventBus.FreeSpin = StartFortune;
    }
-   public void StartFortune(bool WasNotMoney)
+   private void StartFortune(bool WasNotMoney)
    {
       _freeSpins = Iinstance.instance.FreeSpins;
       if (WasNotMoney == true)

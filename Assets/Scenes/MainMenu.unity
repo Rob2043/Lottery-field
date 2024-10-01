@@ -1163,7 +1163,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 206946446}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 845866106}
+        m_TargetAssemblyTypeName: HomeMenu, Assembly-CSharp
+        m_MethodName: GiveMoney
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &206946446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3638,6 +3650,7 @@ MonoBehaviour:
   - {fileID: 935420597}
   - {fileID: 572761274}
   - {fileID: 1128424650}
+  _spinbutton: {fileID: 1931002242}
   _chosePanel: {fileID: 2135196063}
   _taskPanel: {fileID: 564036924}
   _tutorialsTexts:
@@ -7302,7 +7315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1094999691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10537,9 +10550,9 @@ MonoBehaviour:
   - {fileID: 946227179}
   - {fileID: 421044467}
   _arrayOfNameTask:
-  - something
-  - CountOfNumber
-  - AmountOfNumber
+  - Corner Tickets Task
+  - Sum of Digits Task
+  - Repeating Digits Task
   _arrayOfBasicReward:
   - 250
   - 500
@@ -12979,7 +12992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2eb1c5ef0bc4f473981668b73a9fc23d, type: 3}
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

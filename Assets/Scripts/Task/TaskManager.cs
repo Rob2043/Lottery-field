@@ -23,6 +23,7 @@ public class TaskManager : MonoBehaviour
     float chooseNumber = 0f;
     private void Start()
     {
+        //PlayerPrefs.DeleteAll();
         Iinstance.instance.ArrayOfNameTask = _arrayOfNameTask;
         Iinstance.instance.TypesOfTask = _typesOfTask;
         for (int i = 0; i < _buttonsForGetMoney.Length; i++)
@@ -46,14 +47,18 @@ public class TaskManager : MonoBehaviour
                     randomNumber = Random.Range(1, 6);
                     break;
             }
-            Debug.Log(randomNumber);
             if (PlayerPrefs.GetInt($"{_arrayOfNameTask[count]}TaskWasCollecting{count}", 0) == 0)
+            {
+                _typesOfTask.Add(_arrayOfNameTask[count], randomNumber);
+                PlayerPrefs.SetInt($"{_arrayOfNameTask[count]}TaskWasCollecting{count}", 1);
+                PlayerPrefs.SetFloat($"LastRandomNumber{count}", randomNumber);
+            }
+            else if (PlayerPrefs.GetInt($"{_arrayOfNameTask[count]}TaskWasCollecting{count}", 0) == 1)
             {
                 float number = PlayerPrefs.GetFloat($"LastRandomNumber{count}", 0);
                 _typesOfTask.Add(_arrayOfNameTask[count], number);
                 PlayerPrefs.SetFloat($"LastRandomNumber{count}", number);
                 randomNumber = number;
-                Debug.Log(randomNumber);
             }
             else
             {
@@ -93,7 +98,7 @@ public class TaskManager : MonoBehaviour
         _goatTexts[periodOfTask].text = $"{chooseNumber}";
         chooseNumber = 0;
         _buttonsForGetMoney[periodOfTask].interactable = false;
-        PlayerPrefs.SetInt($"{_arrayOfNameTask[periodOfTask]}TaskWasCollecting{periodOfTask}", 0);
+        PlayerPrefs.SetInt($"{_arrayOfNameTask[periodOfTask]}TaskWasCollecting{periodOfTask}", 1);
         PlayerPrefs.Save();
     }
 }

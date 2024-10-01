@@ -17,12 +17,11 @@ namespace CustomEventBus
         public static Func<(bool, int)> ReadyForCheck;
         public static Func<bool> CanPlay;
         public static Action<string> LodingScene;
-        public static Action<Enums, string, bool> BuyAction;
+        public static Action<Enums, string> BuyAction;
         public static Action<int> AddFreeSpin;
         public static Action<bool> FreeSpin;
         public static Action UpdateMoney;
         public static Action<int, int> CheckTask;
-        public static Action NextTextForTutorial;
         public static Action StartGame;
     }
 }

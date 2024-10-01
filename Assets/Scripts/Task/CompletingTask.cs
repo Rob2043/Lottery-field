@@ -28,7 +28,7 @@ public class CompletingTask : MonoBehaviour
                         {
                             PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}ResultOfTask", PlayerPrefs.GetInt($"{_arrayOfNameTask[i]}ResultOfTask", 0) + 1);
                             if( PlayerPrefs.GetInt($"{_arrayOfNameTask[i]}ResultOfTask", 0) == _typesOfTask[_arrayOfNameTask[i]])
-                                PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 1);
+                                PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 2);
                         }
 
                     break;
@@ -44,7 +44,7 @@ public class CompletingTask : MonoBehaviour
                         countOfNumber += (int)(secondNumber * 10);
                     }
                     if (countOfNumber > _typesOfTask[_arrayOfNameTask[i]])
-                        PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 1);
+                        PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 2);
                     break;
                 case 3:
                     int Number = GuestNumber;
@@ -59,7 +59,7 @@ public class CompletingTask : MonoBehaviour
                             countOf++;
                     }
                     if (countOf == _typesOfTask[_arrayOfNameTask[i]])
-                        PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 1);
+                        PlayerPrefs.SetInt($"{_arrayOfNameTask[i]}TaskWasCollecting{i}", 2);
                     break;
             }
             PlayerPrefs.Save();

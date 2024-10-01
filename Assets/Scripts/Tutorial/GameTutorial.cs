@@ -15,7 +15,7 @@ public class GameTutorial : MonoBehaviour
     private bool isCoroutineRunning = false;
     private void Start()
     {
-        if (PlayerPrefs.GetInt("TutorialCompletedPart1", 1) == 1 && PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 0)
+        if (PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 0)
         {
             _tutorialPanel.SetActive(true);
             OutButton();

@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
     const int endForTutorial = 11;
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private Image[] _buttons;
+    [SerializeField] private Image _spinbutton;
     [SerializeField] private GameObject _chosePanel;
     [SerializeField] private GameObject _taskPanel;
     [SerializeField] private string[] _tutorialsTexts;
@@ -18,14 +19,13 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Button _buttonForSwitchText;
     private bool isCoroutineRunning = false;
     int _countOfTutorials = 0;
-    string lightColor = "FFAAAA";
+    string lightColor = "#FF0000";
 
     private void Start()
     {
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             EventBus.CanPlay = CheckPlaing;
-            EventBus.NextTextForTutorial = OutButton;
             if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
                 _chosePanel.SetActive(true);
             else if (PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 1)
@@ -56,29 +56,31 @@ public class TutorialManager : MonoBehaviour
             2 => true,
             3 => true,
             9 => true,
+            10 => true,
             _ => false,
         };
         if (result == true)
         {
             _buttonForSwitchText.interactable = true;
             _countOfTutorials++;
+            OutButton();
         }
         return result;
     }
     public IEnumerator NextText()
     {
-        if (_countOfTutorials < numberForStartPart2 || PlayerPrefs.GetInt("TutorialCompletedPart2", 1) == 1)
+        if (_countOfTutorials < numberForStartPart2 || PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 1)
         {
             isCoroutineRunning = true;
             _textForTutorial.text = "";
-            _countOfTutorials++;
+                _countOfTutorials++;
             switch (_countOfTutorials)
             {
                 case 2:
                 case 3:
                     _buttonForSwitchText.interactable = false;
                     break;
-                case 7:
+                case 8:
                     Color newColor;
                     if (ColorUtility.TryParseHtmlString(lightColor, out newColor))
                     {
@@ -92,6 +94,11 @@ public class TutorialManager : MonoBehaviour
                         _buttons[i].color = Color.white;
                     _buttonForSwitchText.interactable = false;
                     break;
+                case 10:
+                    Color newColor2;
+                    if (ColorUtility.TryParseHtmlString(lightColor, out newColor2))
+                        _spinbutton.color = newColor2;
+                    break;
             }
             _writingTextSound.Play();
             for (int i = 0; i < _tutorialsTexts[_countOfTutorials].Length; i++)
@@ -100,10 +107,10 @@ public class TutorialManager : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.02f);
             }
         }
-        else if (_countOfTutorials == endForTutorial)
+        if (_countOfTutorials == endForTutorial)
         {
-            PlayerPrefs.GetInt("TutorialCompleted", 1);
-            _tutorialPanel.SetActive(true);
+            PlayerPrefs.SetInt("TutorialCompleted", 1);
+            _tutorialPanel.SetActive(false);
         }
         PlayerPrefs.Save();
         _writingTextSound.Stop();
