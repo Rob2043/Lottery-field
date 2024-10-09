@@ -16,6 +16,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private GameObject SpinPanel;
     [SerializeField] private GameObject TaskPanel;
     [SerializeField] private GameObject TutorialPanel;
+    [SerializeField] private Image mainBackGroundImage;
     [Header("Audio Settings")]
     [SerializeField] private AudioSource[] audioClips;
     [SerializeField] private Button soundToggleButton;
@@ -26,9 +27,12 @@ public class HomeMenu : MonoBehaviour
 
     private bool isSoundActive;
     private int MinmumCostOfGame = 100;
-
     private void Start()
     {
+        if(PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
+            mainBackGroundImage.color = Color.gray;
+        else
+            mainBackGroundImage.color = Color.white;
         EventBus.UpdateMoney = UpdaeteMoney;
         UpdaeteMoney();
         Time.timeScale = 1f;
@@ -55,6 +59,7 @@ public class HomeMenu : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
+            mainBackGroundImage.color = Color.gray;
             if (EventBus.CanPlay.Invoke() == true)
             {
                 audioClips[1].Play();
@@ -68,13 +73,17 @@ public class HomeMenu : MonoBehaviour
         }
         else
         {
+            mainBackGroundImage.color = Color.white;
             if (MinmumCostOfGame <= EventBus.GetCoins.Invoke())
             {
                 EventBus.SetCoins(-MinmumCostOfGame);
                 EventBus.LodingScene.Invoke("GameScene");
             }
             else
+            {
+                mainBackGroundImage.color = Color.gray;
                 ErrorPanel.SetActive(true);
+            }
         }
         PlayerPrefs.Save();
     }
@@ -93,6 +102,7 @@ public class HomeMenu : MonoBehaviour
     }
     public void OpenSettings()
     {
+        mainBackGroundImage.color = Color.gray;
         audioClips[1].Play();
         settingsPanel.SetActive(true);
     }
@@ -131,6 +141,7 @@ public class HomeMenu : MonoBehaviour
 
     public void CloseSettings()
     {
+        mainBackGroundImage.color = Color.white;
         audioClips[1].Play();
         settingsPanel.SetActive(false);
     }

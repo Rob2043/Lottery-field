@@ -55,7 +55,7 @@ public class SpinManager : MonoBehaviour
          _backButton.interactable = true;
          uiSpinButtonText.text = "Spin";
          WinPanel.SetActive(true);
-         _textOfMoneyWin.text = $"{wheelPiece.Amount} Stars";
+         _textOfMoneyWin.text = $"{wheelPiece.Amount}";
          EventBus.SetCoins.Invoke(wheelPiece.Amount);
          _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
          EventBus.UpdateMoney.Invoke();
