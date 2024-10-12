@@ -16,7 +16,11 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private GameObject SpinPanel;
     [SerializeField] private GameObject TaskPanel;
     [SerializeField] private GameObject TutorialPanel;
+    [SerializeField] private Image[] allImages = new Image[3];
     [SerializeField] private Image mainBackGroundImage;
+    [SerializeField] private TMP_Text[] _textOfButtons = new TMP_Text[2];
+    [SerializeField] private GameObject _chosePanel;
+
     [Header("Audio Settings")]
     [SerializeField] private AudioSource[] audioClips;
     [SerializeField] private Button soundToggleButton;
@@ -29,14 +33,38 @@ public class HomeMenu : MonoBehaviour
     private int MinmumCostOfGame = 100;
     private void Start()
     {
-        if(PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
-            mainBackGroundImage.color = Color.gray;
+        EventBus.ChangeBackground = ChangeColor;
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
+            ChangeColor(true);
         else
-            mainBackGroundImage.color = Color.white;
+            ChangeColor(false);
         EventBus.UpdateMoney = UpdaeteMoney;
         UpdaeteMoney();
         Time.timeScale = 1f;
         InitializeAudioSettings();
+    }
+    private void ChangeColor(bool wasChangingColor)
+    {
+        if (wasChangingColor == true)
+        {
+            for (int i = 0; i < allImages.Length; i++)
+            {
+                allImages[i].color = Color.gray;
+                if(i < 2)
+                    _textOfButtons[i].color = Color.gray;
+            }
+            mainBackGroundImage.color = Color.gray;
+        }
+        else
+        {
+            for (int i = 0; i < allImages.Length; i++)
+            {
+                allImages[i].color = Color.white;
+                if(i < 2)
+                    _textOfButtons[i].color = Color.white;
+            }
+            mainBackGroundImage.color = Color.white;
+        }
     }
     private void UpdaeteMoney()
     {
@@ -54,17 +82,25 @@ public class HomeMenu : MonoBehaviour
         }
         soundToggleButton.image.sprite = isSoundActive ? soundOnSprite : soundOffSprite;
     }
-
+    public void CloseTutorial()
+    {
+        audioClips[1].Play();
+        _chosePanel.SetActive(false);
+        ChangeColor(false);
+        PlayerPrefs.SetInt("TutorialCompleted", 1);
+        PlayerPrefs.Save();
+    }
     public void StartGame()
     {
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            mainBackGroundImage.color = Color.gray;
+            ChangeColor(true);
             if (EventBus.CanPlay.Invoke() == true)
             {
                 audioClips[1].Play();
                 if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
                 {
+                    ChangeColor(false);
                     PlayerPrefs.SetInt("TutorialCompletedPart1", 1);
                     TutorialPanel.SetActive(false);
                 }
@@ -73,7 +109,6 @@ public class HomeMenu : MonoBehaviour
         }
         else
         {
-            mainBackGroundImage.color = Color.white;
             if (MinmumCostOfGame <= EventBus.GetCoins.Invoke())
             {
                 EventBus.SetCoins(-MinmumCostOfGame);
@@ -81,7 +116,7 @@ public class HomeMenu : MonoBehaviour
             }
             else
             {
-                mainBackGroundImage.color = Color.gray;
+                ChangeColor(true);
                 ErrorPanel.SetActive(true);
             }
         }
@@ -92,17 +127,14 @@ public class HomeMenu : MonoBehaviour
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             if (EventBus.CanPlay.Invoke() == true)
-            {
                 TaskPanel.SetActive(true);
-            }
-
         }
         else
             TaskPanel.SetActive(true);
     }
     public void OpenSettings()
     {
-        mainBackGroundImage.color = Color.gray;
+        ChangeColor(true);
         audioClips[1].Play();
         settingsPanel.SetActive(true);
     }
@@ -141,7 +173,7 @@ public class HomeMenu : MonoBehaviour
 
     public void CloseSettings()
     {
-        mainBackGroundImage.color = Color.white;
+        ChangeColor(false);
         audioClips[1].Play();
         settingsPanel.SetActive(false);
     }

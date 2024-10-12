@@ -14,7 +14,7 @@ public class Iinstance : MonoBehaviour
     public string[] ArrayOfNameTask = new string[AmountOfTask];
     private void Awake()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         Screen.orientation = ScreenOrientation.Portrait;
         Screen.autorotateToPortrait = true;
         Screen.autorotateToPortraitUpsideDown = true;

@@ -8,7 +8,6 @@ public class TutorialManager : MonoBehaviour
 {
     const int numberForStartPart2 = 2;
     const int endForTutorial = 11;
-    [SerializeField] private Image mainBackGroundImage;
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private Image[] _buttons;
     [SerializeField] private Image _spinbutton;
@@ -110,7 +109,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_countOfTutorials == endForTutorial)
         {
-            mainBackGroundImage.color = Color.white;
+            EventBus.ChangeBackground(false);
             PlayerPrefs.SetInt("TutorialCompleted", 1);
             _tutorialPanel.SetActive(false);
         }
