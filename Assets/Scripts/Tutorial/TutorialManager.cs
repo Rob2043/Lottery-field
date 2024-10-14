@@ -81,12 +81,8 @@ public class TutorialManager : MonoBehaviour
                     _buttonForSwitchText.interactable = false;
                     break;
                 case 8:
-                    Color newColor;
-                    if (ColorUtility.TryParseHtmlString(lightColor, out newColor))
-                    {
-                        for (int i = 0; i < _buttons.Length; i++)
-                            _buttons[i].color = newColor;
-                    }
+                    for (int i = 0; i < _buttons.Length; i++)
+                        _buttons[i].color = Color.blue;
                     break;
                 case 9:
                     _taskPanel.SetActive(false);

@@ -50,7 +50,7 @@ public class HomeMenu : MonoBehaviour
             for (int i = 0; i < allImages.Length; i++)
             {
                 allImages[i].color = Color.gray;
-                if(i < 2)
+                if(i < 3)
                     _textOfButtons[i].color = Color.gray;
             }
             mainBackGroundImage.color = Color.gray;
@@ -60,7 +60,7 @@ public class HomeMenu : MonoBehaviour
             for (int i = 0; i < allImages.Length; i++)
             {
                 allImages[i].color = Color.white;
-                if(i < 2)
+                if(i < 3)
                     _textOfButtons[i].color = Color.white;
             }
             mainBackGroundImage.color = Color.white;
