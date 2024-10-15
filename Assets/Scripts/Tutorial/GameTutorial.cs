@@ -15,10 +15,13 @@ public class GameTutorial : MonoBehaviour
     private bool isCoroutineRunning = false;
     private void Start()
     {
-        if (PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 0)
+        if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            _tutorialPanel.SetActive(true);
-            OutButton();
+            if (PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 0)
+            {
+                _tutorialPanel.SetActive(true);
+                OutButton();
+            }
         }
     }
     public void OutButton()
