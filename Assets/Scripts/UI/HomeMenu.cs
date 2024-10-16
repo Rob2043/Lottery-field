@@ -19,6 +19,7 @@ public class HomeMenu : MonoBehaviour
     [SerializeField] private Image[] allImages = new Image[3];
     [SerializeField] private Image mainBackGroundImage;
     [SerializeField] private TMP_Text[] _textOfButtons = new TMP_Text[2];
+    [SerializeField] private TMP_Text _textOfFreeSpin;
     [SerializeField] private GameObject _chosePanel;
 
     [Header("Audio Settings")]
@@ -141,6 +142,7 @@ public class HomeMenu : MonoBehaviour
 
     public void OpenSpin()
     {
+        _textOfFreeSpin.text = $"{Iinstance.instance.FreeSpins}";
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             if (EventBus.CanPlay.Invoke() == true)
