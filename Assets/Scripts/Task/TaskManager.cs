@@ -13,6 +13,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private Button[] _buttonsForGetMoney = new Button[AmountOfTask];
     [SerializeField] private TMP_Text[] _rewardsTexts = new TMP_Text[AmountOfTask];
     [SerializeField] private TMP_Text[] _goatTexts = new TMP_Text[AmountOfTask];
+    private Image[] _imagesFromButton = new Image[AmountOfTask];
     [Header("Options For Algorithm")]
     [SerializeField] private string[] _arrayOfNameTask = new string[AmountOfTask];
     [SerializeField] private float[] _arrayOfBasicReward = new float[AmountOfTask];
@@ -23,11 +24,16 @@ public class TaskManager : MonoBehaviour
     float chooseNumber = 0f;
     private void Start()
     {
+        for (int i = 0; i < _imagesFromButton.Length; i++)
+            _imagesFromButton[i] = _buttonsForGetMoney[i].gameObject.GetComponent<Image>();
         //PlayerPrefs.DeleteAll();
         Iinstance.instance.ArrayOfNameTask = _arrayOfNameTask;
         Iinstance.instance.TypesOfTask = _typesOfTask;
         for (int i = 0; i < _buttonsForGetMoney.Length; i++)
+        {
             _buttonsForGetMoney[i].interactable = false;
+            _imagesFromButton[i].color = Color.gray;
+        }
         UpdateTask();
     }
     private void UpdateTask()
@@ -63,6 +69,7 @@ public class TaskManager : MonoBehaviour
             else
             {
                 _buttonsForGetMoney[count].interactable = true;
+                _imagesFromButton[count].color = Color.white;
             }
             float percent = randomNumber / _arrayOfBasicGoat[count];
             _arrayOfReward[count] = (int)(_arrayOfBasicReward[count] * percent);
@@ -98,6 +105,7 @@ public class TaskManager : MonoBehaviour
         _goatTexts[periodOfTask].text = $"{chooseNumber}";
         chooseNumber = 0;
         _buttonsForGetMoney[periodOfTask].interactable = false;
+        _imagesFromButton[count].color = Color.gray;
         PlayerPrefs.SetInt($"{_arrayOfNameTask[periodOfTask]}TaskWasCollecting{periodOfTask}", 1);
         PlayerPrefs.Save();
     }
