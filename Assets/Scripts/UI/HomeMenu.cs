@@ -51,7 +51,7 @@ public class HomeMenu : MonoBehaviour
             for (int i = 0; i < allImages.Length; i++)
             {
                 allImages[i].color = Color.gray;
-                if(i < 3)
+                if (i < 3)
                     _textOfButtons[i].color = Color.gray;
             }
             mainBackGroundImage.color = Color.gray;
@@ -61,7 +61,7 @@ public class HomeMenu : MonoBehaviour
             for (int i = 0; i < allImages.Length; i++)
             {
                 allImages[i].color = Color.white;
-                if(i < 3)
+                if (i < 3)
                     _textOfButtons[i].color = Color.white;
             }
             mainBackGroundImage.color = Color.white;
@@ -125,6 +125,7 @@ public class HomeMenu : MonoBehaviour
     }
     public void OpenTask()
     {
+        ChangeColor(true);
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             if (EventBus.CanPlay.Invoke() == true)
@@ -132,6 +133,12 @@ public class HomeMenu : MonoBehaviour
         }
         else
             TaskPanel.SetActive(true);
+    }
+    public void CloseTask()
+    {
+        ChangeColor(false);
+        TaskPanel.SetActive(false);
+        audioClips[1].Play();
     }
     public void OpenSettings()
     {

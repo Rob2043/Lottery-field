@@ -3898,7 +3898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -150}
+  m_AnchoredPosition: {x: 125, y: -200}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &526783396
@@ -4050,6 +4050,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -4086,12 +4096,12 @@ PrefabInstance:
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -300
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
@@ -5918,6 +5928,7 @@ MonoBehaviour:
   - {fileID: 838699176}
   - {fileID: 838699175}
   - {fileID: 838699174}
+  - {fileID: 1544262839}
   mainBackGroundImage: {fileID: 872535263}
   _textOfButtons:
   - {fileID: 806044387}
@@ -7603,10 +7614,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 564036924}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 845866106}
+        m_TargetAssemblyTypeName: HomeMenu, Assembly-CSharp
+        m_MethodName: CloseTask
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
