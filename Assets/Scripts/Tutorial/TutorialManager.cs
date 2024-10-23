@@ -11,6 +11,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private Image[] _buttons;
     [SerializeField] private Image _spinbutton;
+    [SerializeField] private Image[] _playButtons = new Image[3];
+    [SerializeField] private TMP_Text[] _playTexts = new TMP_Text[3];
     [SerializeField] private GameObject _chosePanel;
     [SerializeField] private GameObject _taskPanel;
     [SerializeField] private string[] _tutorialsTexts;
@@ -67,6 +69,20 @@ public class TutorialManager : MonoBehaviour
         }
         return result;
     }
+    private void ChangeColor(int Number)
+    {
+        if (Number == 2)
+        {
+            _playButtons[Number].color = Color.white;
+            _playButtons[Number + 1].color = Color.white;
+
+        }
+        else
+        {
+            _playButtons[Number].color = Color.white;
+            _playTexts[Number].color = Color.white;
+        }
+    }
     public IEnumerator NextText()
     {
         if (_countOfTutorials < numberForStartPart2 || PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 1)
@@ -77,7 +93,11 @@ public class TutorialManager : MonoBehaviour
             switch (_countOfTutorials)
             {
                 case 2:
+                    _buttonForSwitchText.interactable = false;
+                    ChangeColor(0);
+                    break;
                 case 3:
+                    ChangeColor(1);
                     _buttonForSwitchText.interactable = false;
                     break;
                 case 8:
@@ -85,6 +105,7 @@ public class TutorialManager : MonoBehaviour
                         _buttons[i].color = Color.blue;
                     break;
                 case 9:
+                    ChangeColor(2);
                     _taskPanel.SetActive(false);
                     for (int i = 0; i < _buttons.Length; i++)
                         _buttons[i].color = Color.white;

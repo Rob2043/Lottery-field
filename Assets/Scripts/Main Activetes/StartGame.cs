@@ -52,10 +52,10 @@ public class StartGame : MonoBehaviour
         bool secondCheck = false;
         while (firstCheck == false & secondCheck == false)
         {
-            firstfalseNumber = Random.Range(0, 9);
+            firstfalseNumber = Random.Range(1, 10);
             if (RandomPeriodFirstNumber != firstfalseNumber)
                 firstCheck = true;
-            secondfalseNumber = Random.Range(0, 9);
+            secondfalseNumber = Random.Range(1, 10);
             if (RandomPeriodSecondNumber != secondfalseNumber)
                 secondCheck = true;
         }
@@ -77,7 +77,7 @@ public class StartGame : MonoBehaviour
                     int _guessRandomDigit = 0;
                     for (int j = 0; j < _countOfNumbers; j++)
                     {
-                        _guessRandomDigit = Random.Range(0, 9);
+                        _guessRandomDigit = Random.Range(1, 10);
                         if (_randomNumber == 0)
                             _randomNumber = _guessRandomDigit;
                         else

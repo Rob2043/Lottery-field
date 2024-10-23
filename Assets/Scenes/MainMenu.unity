@@ -1964,7 +1964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23, y: 277}
+  m_AnchoredPosition: {x: -240.00002, y: 326.00003}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273421919
@@ -2036,15 +2036,15 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1246869228}
-  - {fileID: 273421918}
   - {fileID: 1731645980}
   - {fileID: 995790005}
+  - {fileID: 273421918}
   m_Father: {fileID: 1022443226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -470}
-  m_SizeDelta: {x: 978, y: 700}
+  m_AnchoredPosition: {x: 3, y: -439}
+  m_SizeDelta: {x: 978, y: 636.9768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &291713690
 MonoBehaviour:
@@ -3730,7 +3730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 32}
   m_SizeDelta: {x: 700, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511861591
@@ -4222,10 +4222,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tutorialPanel: {fileID: 291713688}
   _buttons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1420784497}
+  - {fileID: 1030528121}
+  - {fileID: 1924822620}
   _spinbutton: {fileID: 1931002242}
+  _playButtons:
+  - {fileID: 511861592}
+  - {fileID: 1722934975}
+  - {fileID: 1931002242}
+  - {fileID: 1544262839}
+  _playTexts:
+  - {fileID: 806044387}
+  - {fileID: 1420221473}
   _chosePanel: {fileID: 2135196063}
   _taskPanel: {fileID: 564036924}
   _tutorialsTexts:
@@ -7814,7 +7822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1094999691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8531,8 +8539,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: 0}
-  m_SizeDelta: {x: 1050, y: 700}
+  m_AnchoredPosition: {x: 1, y: -7.0026}
+  m_SizeDelta: {x: 1050, y: 714.0051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1246869229
 MonoBehaviour:
@@ -11349,8 +11357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: -223}
-  m_SizeDelta: {x: 1641.1619, y: 800}
+  m_AnchoredPosition: {x: 7.8899, y: -87.377}
+  m_SizeDelta: {x: 888.2404, y: 462.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1731645981
 MonoBehaviour:
@@ -11372,8 +11380,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Rewards vary by task difficulty. Complete tasks to earn coins, chips and
-    bonuses. '
+  m_text: 'Sum of Digits Task: Choose a ticket where the sum of the digits is more
+    than a specified value.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -11436,7 +11444,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 367.17953, y: 41.58348, z: 394.5153, w: 332.24652}
+  m_margin: {x: -4.0730276, y: -25.92102, z: 3.9770813, w: -0.43435657}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12610,7 +12618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: 150}
+  m_AnchoredPosition: {x: -120, y: 150}
   m_SizeDelta: {x: 275, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931002241
