@@ -20,6 +20,7 @@ public class GameTutorial : MonoBehaviour
             if (PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 0)
             {
                 _tutorialPanel.SetActive(true);
+                EventBus.ChangeBackgroundInGame.Invoke(true);
                 OutButton();
             }
         }
@@ -46,6 +47,7 @@ public class GameTutorial : MonoBehaviour
         else if (_countOfTutorials == numberForStartPart2)
         {
             PlayerPrefs.SetInt("TutorialCompletedPart2", 1);
+            EventBus.ChangeBackgroundInGame.Invoke(false);
             _tutorialPanel.SetActive(false);
         }
         _writingTextSound.Stop();

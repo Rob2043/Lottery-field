@@ -24,5 +24,6 @@ namespace CustomEventBus
         public static Action<int, int> CheckTask;
         public static Action StartGame;
         public static Action<bool> ChangeBackground;
+        public static Action<bool> ChangeBackgroundInGame;
     }
 }
