@@ -25,5 +25,6 @@ namespace CustomEventBus
         public static Action StartGame;
         public static Action<bool> ChangeBackground;
         public static Action<bool> ChangeBackgroundInGame;
+        public static Func<int[]> ReturnWinArray;
     }
 }

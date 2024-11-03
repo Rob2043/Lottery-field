@@ -6,11 +6,12 @@ using UnityEngine;
 public class CompletingTask : MonoBehaviour
 {
     private const int AmountOfTask = 3;
-    [SerializeField] private int[] _winigPositions = new int[4];
+    private int[] _winigPositions = new int[4];
     private string[] _arrayOfNameTask = new string[AmountOfTask];
     private Dictionary<string, float> _typesOfTask = new(AmountOfTask);
     private void Start()
     {
+        _winigPositions = EventBus.ReturnWinArray.Invoke();
         _arrayOfNameTask = Iinstance.instance.ArrayOfNameTask;
         _typesOfTask = Iinstance.instance.TypesOfTask;
         EventBus.CheckTask = CheckComptingOfTask;

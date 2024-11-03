@@ -10,6 +10,7 @@ public class Iinstance : MonoBehaviour
     public static Iinstance instance;
     public int Coins;
     public int FreeSpins;
+    public int MyLevel;
     public Dictionary<string, float> TypesOfTask = new(AmountOfTask);
     public string[] ArrayOfNameTask = new string[AmountOfTask];
     private void Awake()
@@ -26,6 +27,7 @@ public class Iinstance : MonoBehaviour
         Application.targetFrameRate = 60;
         Coins = PlayerPrefs.GetInt("Money", 1000);
         FreeSpins = PlayerPrefs.GetInt("FreeSpin", 0);
+        MyLevel = PlayerPrefs.GetInt("Level", 1);
         PlayerPrefs.SetInt("ChooseCount", 0);
         if (instance == null)
         {
@@ -46,6 +48,7 @@ public class Iinstance : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
+        PlayerPrefs.SetInt("Level",MyLevel);
         PlayerPrefs.SetInt("Money", Coins);
         PlayerPrefs.SetInt("FreeSpin", FreeSpins);
         PlayerPrefs.Save();

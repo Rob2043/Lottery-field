@@ -6,9 +6,13 @@ using CustomEventBus;
 public class StartGame : MonoBehaviour
 {
     [Header("Texts")]
-    [SerializeField] private TMP_Text[] _arrayTextNumbers = new TMP_Text[16];
+    [SerializeField] private GameObject[] _ButtonsNumbers = new GameObject[16];
     [SerializeField] private TMP_Text _textOfFirstHidNumber;
     [SerializeField] private TMP_Text _textOfSecondHidNumber;
+    #region Main
+    private TMP_Text[] _arrayTextNumbers = new TMP_Text[16];
+    private int[] winTikets = new int[4];
+    #endregion Main
     #region FirstNumber
     private Dictionary<int, int> RememberFirstNumber = new();
     private Queue<int> RememberOfFirstPeriod = new();
@@ -22,8 +26,8 @@ public class StartGame : MonoBehaviour
     private int[] _SecondGuessNumber;
     #endregion SecondNumber
     #region RandomsNumbers
-    private int[] RandomNumbers = new int[16];
-    private int[] _choiceNumbers = new int[2];
+    private int[] RandomNumbers;
+    private int[] _choiceNumbers;
     private int _countOfChoosing = 0;
     private int _countOfNumbers;
     private int _hiddenNumber = 5;
@@ -35,7 +39,16 @@ public class StartGame : MonoBehaviour
 
     private void Awake()
     {
-        _countOfNumbers = Random.Range(6, 8);
+        if (Iinstance.instance.MyLevel != 5)
+            _countOfNumbers = Iinstance.instance.MyLevel * 2 + 2;
+        else
+            _countOfNumbers = Iinstance.instance.MyLevel * 2 + 6;
+        for (int i = 0; i < _ButtonsNumbers.Length; i++)
+        {
+            _arrayTextNumbers[i] = _ButtonsNumbers[i].GetComponentInChildren<TMP_Text>();
+            if (i != _countOfNumbers)
+                _ButtonsNumbers[i].SetActive(false);
+        }
         _FirstGuessNumber = new int[_countOfNumbers];
         _SecondGuessNumber = new int[_countOfNumbers];
         bool diferentRandom = false;
@@ -92,6 +105,7 @@ public class StartGame : MonoBehaviour
     }
     private void OnEnable()
     {
+        EventBus.ReturnWinArray += ReturnWinTickets;
         EventBus.GetTransformForBillet += GetPositionForButton;
         EventBus.TimeToUpdateHidNumber += OnTime;
         EventBus.SetPlayersChouse += PlayersChouse;
@@ -99,10 +113,22 @@ public class StartGame : MonoBehaviour
     }
     private void OnDisable()
     {
+        EventBus.ReturnWinArray -= ReturnWinTickets;
         EventBus.GetTransformForBillet -= GetPositionForButton;
         EventBus.TimeToUpdateHidNumber -= OnTime;
         EventBus.SetPlayersChouse -= PlayersChouse;
         EventBus.ReadyForCheck -= CheckWining;
+    }
+    private int[] ReturnWinTickets()
+    {
+        int level = Iinstance.instance.MyLevel;
+        level -= 2;
+        for (int i = 2; i < winTikets.Length; i++)
+        {
+            winTikets[i] = level;
+            level++;
+        }
+        return winTikets;
     }
     private int ChangeGuestNumber(int period)
     {

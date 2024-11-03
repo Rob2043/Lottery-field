@@ -9,6 +9,7 @@ public class HomeMenu : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private TMP_Text starsText;
+    [SerializeField] private TMP_Text _levelText;
     [SerializeField] private TMP_Text _secondStarsText;
     [SerializeField] private TMP_Text _thirdStarsText;
     [SerializeField] private GameObject settingsPanel;
