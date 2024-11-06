@@ -8,10 +8,15 @@ public class StartGame : MonoBehaviour
     [Header("Texts")]
     [SerializeField] private GameObject[] _ButtonsNumbers = new GameObject[16];
     [SerializeField] private TMP_Text _textOfFirstHidNumber;
-    [SerializeField] private TMP_Text _textOfSecondHidNumber;
+    [SerializeField] private TMP_Text _textCountOfChance;
+    [SerializeField] private GameObject _ObjectOfSecondHidNumber;
+    private TMP_Text _textOfSecondHidNumber;
     #region Main
     private TMP_Text[] _arrayTextNumbers = new TMP_Text[16];
     private int[] winTikets = new int[4];
+    private bool soManyTickets = false;
+    private bool checklevel;
+    private int _countOfTickets;
     #endregion Main
     #region FirstNumber
     private Dictionary<int, int> RememberFirstNumber = new();
@@ -39,51 +44,69 @@ public class StartGame : MonoBehaviour
 
     private void Awake()
     {
-        if (Iinstance.instance.MyLevel != 5)
-            _countOfNumbers = Iinstance.instance.MyLevel * 2 + 2;
+        _textOfSecondHidNumber = _ObjectOfSecondHidNumber.GetComponent<TMP_Text>();
+        if (Iinstance.instance.MyLevel <= 5)
+        {
+            _choiceNumbers = new int[1];
+            _choiceNumbers[0] = _FirstGuessDigit;
+            _countOfTickets = Iinstance.instance.MyLevel * 2 + 2;
+            _ObjectOfSecondHidNumber.SetActive(false);
+            checklevel = false;
+            _textCountOfChance.text = "/1";
+        }
         else
-            _countOfNumbers = Iinstance.instance.MyLevel * 2 + 6;
+        {
+            _textCountOfChance.text = "/2";
+            checklevel = true;
+            _choiceNumbers = new int[2];
+            _choiceNumbers[0] = _FirstGuessDigit;
+            _choiceNumbers[1] = _SecondGuessDigit;
+            soManyTickets = true;
+            _countOfTickets = Iinstance.instance.MyLevel * 2 + 6;
+        }
+        _countOfNumbers = Random.Range(6, 8);
+        _FirstGuessNumber = new int[_countOfNumbers];
+        _SecondGuessNumber = new int[_countOfNumbers];
+        RandomNumbers = new int[_countOfNumbers];
+        (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
+        (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
         for (int i = 0; i < _ButtonsNumbers.Length; i++)
         {
             _arrayTextNumbers[i] = _ButtonsNumbers[i].GetComponentInChildren<TMP_Text>();
-            if (i != _countOfNumbers)
+            if (i >= _countOfTickets)
                 _ButtonsNumbers[i].SetActive(false);
         }
-        _FirstGuessNumber = new int[_countOfNumbers];
-        _SecondGuessNumber = new int[_countOfNumbers];
         bool diferentRandom = false;
-        while (diferentRandom == false)
+        do
         {
-            RandomPeriodFirstNumber = Random.Range(0, 16);
-            RandomPeriodSecondNumber = Random.Range(0, 16);
+            RandomPeriodFirstNumber = Random.Range(0, _countOfTickets);
+            RandomPeriodSecondNumber = Random.Range(0, _countOfTickets);
             if (RandomPeriodFirstNumber != RandomPeriodSecondNumber)
                 diferentRandom = true;
-        }
-        (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
-        (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
+        } while (diferentRandom == false);
         bool firstCheck = false;
         bool secondCheck = false;
-        while (firstCheck == false & secondCheck == false)
+        do
         {
-            firstfalseNumber = Random.Range(1, 10);
+            firstfalseNumber = Random.Range(1, _countOfTickets);
             if (RandomPeriodFirstNumber != firstfalseNumber)
                 firstCheck = true;
-            secondfalseNumber = Random.Range(1, 10);
+            secondfalseNumber = Random.Range(1, _countOfTickets);
             if (RandomPeriodSecondNumber != secondfalseNumber)
                 secondCheck = true;
-        }
+        } while (firstCheck == false & secondCheck == false);
         for (int i = 0; i < RandomNumbers.Length; i++)
         {
             int _randomNumber = RandomNumbers[i];
             if (firstfalseNumber == i)
                 _randomNumber = ChangeGuestNumber(1);
-            else if (secondfalseNumber == i)
+            else if (secondfalseNumber == i && soManyTickets!)
                 _randomNumber = ChangeGuestNumber(2);
             else
             {
                 if (i == RandomPeriodFirstNumber)
                     _randomNumber = _FirstGuessDigit;
-                else if (i == RandomPeriodSecondNumber)
+                else if (i == RandomPeriodSecondNumber && soManyTickets!)
                     _randomNumber = _SecondGuessDigit;
                 else
                 {
@@ -105,6 +128,7 @@ public class StartGame : MonoBehaviour
     }
     private void OnEnable()
     {
+        EventBus.SituationWithCountOfGuessNumber += ReturnBool;
         EventBus.ReturnWinArray += ReturnWinTickets;
         EventBus.GetTransformForBillet += GetPositionForButton;
         EventBus.TimeToUpdateHidNumber += OnTime;
@@ -113,6 +137,7 @@ public class StartGame : MonoBehaviour
     }
     private void OnDisable()
     {
+        EventBus.SituationWithCountOfGuessNumber -= ReturnBool;
         EventBus.ReturnWinArray -= ReturnWinTickets;
         EventBus.GetTransformForBillet -= GetPositionForButton;
         EventBus.TimeToUpdateHidNumber -= OnTime;
@@ -121,14 +146,18 @@ public class StartGame : MonoBehaviour
     }
     private int[] ReturnWinTickets()
     {
-        int level = Iinstance.instance.MyLevel;
-        level -= 2;
+        int count = _countOfTickets - 2;
         for (int i = 2; i < winTikets.Length; i++)
         {
-            winTikets[i] = level;
-            level++;
+            Debug.Log(count);
+            winTikets[i] = count;
+            count++;
         }
         return winTikets;
+    }
+    private bool ReturnBool()
+    {
+        return checklevel;
     }
     private int ChangeGuestNumber(int period)
     {
@@ -227,8 +256,15 @@ public class StartGame : MonoBehaviour
 
     private void PlayersChouse(int hisNumber)
     {
-        _choiceNumbers[_countOfChoosing] = RandomNumbers[hisNumber];
-        _countOfChoosing++;
+        if (checklevel == true)
+        {
+            _choiceNumbers[_countOfChoosing] = RandomNumbers[hisNumber];
+            _countOfChoosing++;
+        }
+        else
+        {
+            _choiceNumbers[_countOfChoosing] = RandomNumbers[hisNumber];
+        }
     }
 
     private void DisclosureNumber(int firstKeyNumber, int secondKeyNumber, int firstValeyOfKey, int secondValeyOfKey)

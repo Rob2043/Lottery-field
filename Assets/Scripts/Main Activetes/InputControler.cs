@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CustomEventBus;
 using TMPro;
@@ -18,7 +16,7 @@ public class InputControler : MonoBehaviour
     public void ChoseButton(int numberOfButton)
     {
         _clickSound.Play();
-        if(_AmountOfTicket != 0)
+        if (_AmountOfTicket == 2 || EventBus.SituationWithCountOfGuessNumber.Invoke() == true)
         {
             Instantiate(_chouseTicket, EventBus.GetTransformForBillet.Invoke(numberOfButton));
             EventBus.ChouseNumber.Invoke(numberOfButton);

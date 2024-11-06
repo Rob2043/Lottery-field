@@ -3497,7 +3497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 91.6, y: -23}
+  m_AnchoredPosition: {x: 97, y: -23}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &786714866
@@ -9510,7 +9510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231d098ca7021f1448c9ad795d1c0f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winigPositions: 0000000007000000080000000f000000
 --- !u!4 &1060233470
 Transform:
   m_ObjectHideFlags: 0
@@ -14035,25 +14034,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e123c4127ee3f74dae5dbd05d530a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrayTextNumbers:
-  - {fileID: 2093890314}
-  - {fileID: 1304145388}
-  - {fileID: 1393232478}
-  - {fileID: 1518322704}
-  - {fileID: 1093061011}
-  - {fileID: 1676598031}
-  - {fileID: 648927573}
-  - {fileID: 1943792049}
-  - {fileID: 1833210147}
-  - {fileID: 2116947100}
-  - {fileID: 1968289413}
-  - {fileID: 1498871207}
-  - {fileID: 387191524}
-  - {fileID: 1058372686}
-  - {fileID: 811674964}
-  - {fileID: 262622141}
+  _ButtonsNumbers:
+  - {fileID: 394177709}
+  - {fileID: 2006756989}
+  - {fileID: 1765823328}
+  - {fileID: 455354148}
+  - {fileID: 864965268}
+  - {fileID: 1830607620}
+  - {fileID: 761455224}
+  - {fileID: 2060517737}
+  - {fileID: 619831404}
+  - {fileID: 358205607}
+  - {fileID: 272312549}
+  - {fileID: 1122320191}
+  - {fileID: 1295320915}
+  - {fileID: 782672345}
+  - {fileID: 173671471}
+  - {fileID: 27394063}
   _textOfFirstHidNumber: {fileID: 1029711843}
-  _textOfSecondHidNumber: {fileID: 610458665}
+  _textCountOfChance: {fileID: 786714866}
+  _ObjectOfSecondHidNumber: {fileID: 610458663}
 --- !u!4 &2109506398
 Transform:
   m_ObjectHideFlags: 0
@@ -14087,6 +14087,8 @@ MonoBehaviour:
   _textOfPriceMoney: {fileID: 687925938}
   _resultText: {fileID: 674555247}
   _endGamePanel: {fileID: 1726306363}
+  _levelMessage: {fileID: 0}
+  _levelMessageText: {fileID: 0}
   _rewardText: {fileID: 429733200}
   _winImage: {fileID: 674555246}
   _confetti: {fileID: 971178457}

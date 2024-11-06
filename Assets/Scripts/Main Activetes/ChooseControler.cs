@@ -14,6 +14,8 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private TMP_Text _resultText;
     [Header("Others")]
     [SerializeField] private GameObject _endGamePanel;
+    [SerializeField] private GameObject _levelMessage;
+    [SerializeField] private TMP_Text _levelMessageText;
     [SerializeField] private GameObject _rewardText;
     [SerializeField] private GameObject _winImage;
     [SerializeField] private ParticleSystem _confetti;
@@ -47,10 +49,14 @@ public class ChooseControler : MonoBehaviour
             }
             if (_time <= 0 && _wasWin == false)
             {
+                int level = Iinstance.instance.MyLevel;
                 (bool wasWin, int value) = EventBus.ReadyForCheck.Invoke();
                 if (wasWin == true)
                 {
-                    int price = _winScore * value;
+                    PlayerPrefs.SetInt("Level", Iinstance.instance.MyLevel++);
+                    _levelMessageText.text = $"You are level uped to {level}";
+                    float percent = level * 0.25f + level;
+                    int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins(price);
                     _resultText.text = "You Won!";
                     _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
@@ -59,11 +65,12 @@ public class ChooseControler : MonoBehaviour
                 }
                 else
                 {
+                    _levelMessageText.text = $"You downgraded your level to {level}";
                     _winImage.SetActive(false);
                     _rewardText.SetActive(false);
                     _resultText.text = "You Lose";
                 }
-
+                _levelMessage.SetActive(true);
                 _endGamePanel.SetActive(true);
                 _wasWin = true;
             }

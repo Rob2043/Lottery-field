@@ -35,6 +35,7 @@ public class HomeMenu : MonoBehaviour
     private int MinmumCostOfGame = 100;
     private void Start()
     {
+        _levelText.text = $"{Iinstance.instance.MyLevel}";
         EventBus.ChangeBackground = ChangeColor;
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
             ChangeColor(true);
@@ -45,6 +46,13 @@ public class HomeMenu : MonoBehaviour
         Time.timeScale = 1f;
         InitializeAudioSettings();
     }
+    public void ExitFromTheSpinPanel()
+    {
+        audioClips[1].Play();
+        SpinPanel.SetActive(false);
+        ChangeColor(false);
+    }  
+
     private void ChangeColor(bool wasChangingColor)
     {
         if (wasChangingColor == true)
