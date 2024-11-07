@@ -16,6 +16,7 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject exitPanel;
     [SerializeField] private GameObject gameDisplayPanel;
     [SerializeField] private GameObject endGamePanel;
+    [SerializeField] private GameObject _levelMessagePanel;
     [SerializeField] private AudioSource[] audioSources;
     [SerializeField] private AudioMixer mainAudioMixer;
     [SerializeField] private Button soundToggleButton;
@@ -37,6 +38,12 @@ public class LocalMenu : MonoBehaviour
         Time.timeScale = 1f;
         _buttonsImage = panelOfButtons.GetComponentsInChildren<Image>();
         _buttonsText = panelOfButtons.GetComponentsInChildren<TMP_Text>();
+    }
+    public void CloseTheLevelMessage()
+    {
+        audioSources[1].Play();
+        _levelMessagePanel.SetActive(false);
+        ChangeColor(false);
     }
     public void ToggleSound()
     {

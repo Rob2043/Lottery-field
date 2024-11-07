@@ -54,7 +54,7 @@ public class ChooseControler : MonoBehaviour
                 if (wasWin == true)
                 {
                     PlayerPrefs.SetInt("Level", Iinstance.instance.MyLevel++);
-                    _levelMessageText.text = $"You are level uped to {level}";
+                    _levelMessageText.text = $"You upgraded your level to{level}";
                     float percent = level * 0.25f + level;
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins(price);
@@ -65,11 +65,13 @@ public class ChooseControler : MonoBehaviour
                 }
                 else
                 {
+                    Iinstance.instance.MyLevel = 1;
                     _levelMessageText.text = $"You downgraded your level to {level}";
                     _winImage.SetActive(false);
                     _rewardText.SetActive(false);
                     _resultText.text = "You Lose";
                 }
+                EventBus.ChangeBackgroundInGame.Invoke(true);
                 _levelMessage.SetActive(true);
                 _endGamePanel.SetActive(true);
                 _wasWin = true;
