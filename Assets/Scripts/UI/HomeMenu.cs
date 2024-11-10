@@ -38,9 +38,9 @@ public class HomeMenu : MonoBehaviour
         _levelText.text = $"{Iinstance.instance.MyLevel}";
         EventBus.ChangeBackground = ChangeColor;
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
-            ChangeColor(true);
+            ChangeColor(true, null);
         else
-            ChangeColor(false);
+            ChangeColor(false, null);
         EventBus.UpdateMoney = UpdaeteMoney;
         UpdaeteMoney();
         Time.timeScale = 1f;
@@ -50,18 +50,21 @@ public class HomeMenu : MonoBehaviour
     {
         audioClips[1].Play();
         SpinPanel.SetActive(false);
-        ChangeColor(false);
-    }  
+        ChangeColor(false, null);
+    }
 
-    private void ChangeColor(bool wasChangingColor)
+    private void ChangeColor(bool wasChangingColor, Image specialObject)
     {
         if (wasChangingColor == true)
         {
             for (int i = 0; i < allImages.Length; i++)
             {
-                allImages[i].color = Color.gray;
-                if (i < 3)
-                    _textOfButtons[i].color = Color.gray;
+                if (specialObject == null || specialObject != allImages[i])
+                {
+                    allImages[i].color = Color.gray;
+                    if (i < 3)
+                        _textOfButtons[i].color = Color.gray;
+                }
             }
             mainBackGroundImage.color = Color.gray;
         }
@@ -96,7 +99,7 @@ public class HomeMenu : MonoBehaviour
     {
         audioClips[1].Play();
         _chosePanel.SetActive(false);
-        ChangeColor(false);
+        ChangeColor(false, null);
         PlayerPrefs.SetInt("TutorialCompleted", 1);
         PlayerPrefs.Save();
     }
@@ -104,13 +107,13 @@ public class HomeMenu : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
-            ChangeColor(true);
+            ChangeColor(false, null);
             if (EventBus.CanPlay.Invoke() == true)
             {
                 audioClips[1].Play();
                 if (PlayerPrefs.GetInt("TutorialCompletedPart1", 0) == 0)
                 {
-                    ChangeColor(false);
+                    ChangeColor(false, null);
                     PlayerPrefs.SetInt("TutorialCompletedPart1", 1);
                     TutorialPanel.SetActive(false);
                 }
@@ -126,7 +129,7 @@ public class HomeMenu : MonoBehaviour
             }
             else
             {
-                ChangeColor(true);
+                ChangeColor(true, null);
                 ErrorPanel.SetActive(true);
             }
         }
@@ -134,7 +137,7 @@ public class HomeMenu : MonoBehaviour
     }
     public void OpenTask()
     {
-        ChangeColor(true);
+        ChangeColor(true, null);
         if (PlayerPrefs.GetInt("TutorialCompleted", 0) == 0)
         {
             if (EventBus.CanPlay.Invoke() == true)
@@ -145,13 +148,13 @@ public class HomeMenu : MonoBehaviour
     }
     public void CloseTask()
     {
-        ChangeColor(false);
+        ChangeColor(false, null);
         TaskPanel.SetActive(false);
         audioClips[1].Play();
     }
     public void OpenSettings()
     {
-        ChangeColor(true);
+        ChangeColor(true, null);
         audioClips[1].Play();
         settingsPanel.SetActive(true);
     }
@@ -191,7 +194,7 @@ public class HomeMenu : MonoBehaviour
 
     public void CloseSettings()
     {
-        ChangeColor(false);
+        ChangeColor(false, null);
         audioClips[1].Play();
         settingsPanel.SetActive(false);
     }

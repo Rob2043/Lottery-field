@@ -21,8 +21,8 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private ParticleSystem _confetti;
     [SerializeField] private Slider timerSlider;
 
-    private int _timeForUnhid = 20;
-    private int _winScore = 1000;
+    private int _timeForUnhid = 25;
+    private int _winScore = 2000;
     private bool _wasChousing = false;
     private bool _wasWin = false;
 
@@ -39,12 +39,12 @@ public class ChooseControler : MonoBehaviour
                 _time -= Time.deltaTime;
                 _textOfTime.text = $"{(int)_time}";
                 timerSlider.value = _time;
-                if (_timeForUnhid >= _time)
+                if (_timeForUnhid >= _time && _time >= 5)
                 {
                     if (_wasChousing == false)
                         _winScore /= 2;
                     EventBus.TimeToUpdateHidNumber.Invoke();
-                    _timeForUnhid -= 10;
+                    _timeForUnhid -= 5;
                 }
             }
             if (_time <= 0 && _wasWin == false)
@@ -53,8 +53,8 @@ public class ChooseControler : MonoBehaviour
                 (bool wasWin, int value) = EventBus.ReadyForCheck.Invoke();
                 if (wasWin == true)
                 {
-                    PlayerPrefs.SetInt("Level", Iinstance.instance.MyLevel++);
-                    _levelMessageText.text = $"You upgraded your level to{level}";
+                    PlayerPrefs.SetInt("Level", level++);
+                    _levelMessageText.text = $"You upgraded your level to {level}";
                     float percent = level * 0.25f + level;
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins(price);
@@ -71,6 +71,7 @@ public class ChooseControler : MonoBehaviour
                     _rewardText.SetActive(false);
                     _resultText.text = "You Lose";
                 }
+                Iinstance.instance.MyLevel = level;
                 EventBus.ChangeBackgroundInGame.Invoke(true);
                 _levelMessage.SetActive(true);
                 _endGamePanel.SetActive(true);

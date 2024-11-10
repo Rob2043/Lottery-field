@@ -4226,6 +4226,7 @@ MonoBehaviour:
   - {fileID: 1030528121}
   - {fileID: 1924822620}
   _spinbutton: {fileID: 1931002242}
+  _levelIcon: {fileID: 0}
   _playButtons:
   - {fileID: 511861592}
   - {fileID: 1722934975}
@@ -4236,6 +4237,7 @@ MonoBehaviour:
   - {fileID: 1420221473}
   _chosePanel: {fileID: 2135196063}
   _taskPanel: {fileID: 564036924}
+  _spinPanel: {fileID: 2120483572}
   _tutorialsTexts:
   - 'Hi! I am a robot and I am gonna explain how to play my game. '
   - 'Hi! I am a robot and I am gonna explain how to play my game. '
@@ -4250,6 +4252,7 @@ MonoBehaviour:
   - To claim reward from this task, push that buttons
   - In the end I have spin wheel. Push that button.
   - 'Spin the wheel for a chance to win! '
+  - This icon indicates the level!
   - "It\u2019s the end of the game tutorial. "
   _textForTutorial: {fileID: 1731645981}
   _writingTextSound: {fileID: 480390577}
@@ -6016,11 +6019,13 @@ MonoBehaviour:
   - {fileID: 838699175}
   - {fileID: 838699174}
   - {fileID: 1544262839}
+  - {fileID: 1622825753}
   mainBackGroundImage: {fileID: 872535263}
   _textOfButtons:
   - {fileID: 806044387}
   - {fileID: 1420221473}
   - {fileID: 838699173}
+  - {fileID: 1710077490}
   _textOfFreeSpin: {fileID: 296378768}
   _chosePanel: {fileID: 2135196063}
   audioClips:
@@ -11916,7 +11921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1752595109
 RectTransform:
   m_ObjectHideFlags: 0

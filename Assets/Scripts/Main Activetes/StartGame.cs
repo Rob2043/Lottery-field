@@ -64,7 +64,7 @@ public class StartGame : MonoBehaviour
             soManyTickets = true;
             _countOfTickets = Iinstance.instance.MyLevel * 2 + 6;
         }
-        _countOfNumbers = Random.Range(6, 8);
+        _countOfNumbers = Random.Range(7, 9);
         _FirstGuessNumber = new int[_countOfNumbers];
         _SecondGuessNumber = new int[_countOfNumbers];
         RandomNumbers = new int[_countOfNumbers];

@@ -23,7 +23,7 @@ namespace CustomEventBus
         public static Action UpdateMoney;
         public static Action<int, int> CheckTask;
         public static Action StartGame;
-        public static Action<bool> ChangeBackground;
+        public static Action<bool,Image> ChangeBackground;
         public static Action<bool> ChangeBackgroundInGame;
         public static Func<int[]> ReturnWinArray;
         public static Func<bool> SituationWithCountOfGuessNumber;

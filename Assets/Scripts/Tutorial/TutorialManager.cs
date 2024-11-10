@@ -7,14 +7,16 @@ using UnityEngine.UI;
 public class TutorialManager : MonoBehaviour
 {
     const int numberForStartPart2 = 2;
-    const int endForTutorial = 11;
+    const int endForTutorial = 12;
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private Image[] _buttons;
     [SerializeField] private Image _spinbutton;
+    [SerializeField] private Image _levelIcon;
     [SerializeField] private Image[] _playButtons = new Image[3];
     [SerializeField] private TMP_Text[] _playTexts = new TMP_Text[3];
     [SerializeField] private GameObject _chosePanel;
     [SerializeField] private GameObject _taskPanel;
+    [SerializeField] private GameObject _spinPanel;
     [SerializeField] private string[] _tutorialsTexts;
     [SerializeField] private TMP_Text _textForTutorial;
     [SerializeField] private AudioSource _writingTextSound;
@@ -116,6 +118,10 @@ public class TutorialManager : MonoBehaviour
                     if (ColorUtility.TryParseHtmlString(lightColor, out newColor2))
                         _spinbutton.color = newColor2;
                     break;
+                case 11:
+                    _spinPanel.SetActive(false);
+                    EventBus.ChangeBackground.Invoke(false,_levelIcon);
+                break;
             }
             _writingTextSound.Play();
             for (int i = 0; i < _tutorialsTexts[_countOfTutorials].Length; i++)
@@ -126,7 +132,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_countOfTutorials == endForTutorial)
         {
-            EventBus.ChangeBackground(false);
+            EventBus.ChangeBackground(false,null);
             PlayerPrefs.SetInt("TutorialCompleted", 1);
             _tutorialPanel.SetActive(false);
         }

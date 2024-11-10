@@ -11,12 +11,14 @@ public class InputControler : MonoBehaviour
 
     private void Start()
     {
+        if(EventBus.SituationWithCountOfGuessNumber.Invoke() == false)
+            _AmountOfTicket = 1;
         _ScoreOfTickets.text = $"{_AmountOfTicket}";
     }
     public void ChoseButton(int numberOfButton)
     {
         _clickSound.Play();
-        if (_AmountOfTicket == 2 || EventBus.SituationWithCountOfGuessNumber.Invoke() == true)
+        if (_AmountOfTicket != 0)
         {
             Instantiate(_chouseTicket, EventBus.GetTransformForBillet.Invoke(numberOfButton));
             EventBus.ChouseNumber.Invoke(numberOfButton);
