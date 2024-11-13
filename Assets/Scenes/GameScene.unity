@@ -612,7 +612,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You upgraded your level to  1
+  m_text: You upgraded your level to 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -639,8 +639,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 130
-  m_fontSizeBase: 130
+  m_fontSize: 150
+  m_fontSizeBase: 150
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2971,11 +2971,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 605751137}
+  m_Father: {fileID: 1726306364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -241.39993}
+  m_AnchoredPosition: {x: 0, y: -491.3999}
   m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &683359315
@@ -11432,7 +11432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 220}
+  m_AnchoredPosition: {x: -329, y: 275}
   m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1441620805
@@ -12384,6 +12384,7 @@ RectTransform:
   - {fileID: 1813145254}
   - {fileID: 429733201}
   - {fileID: 605751137}
+  - {fileID: 674555249}
   - {fileID: 1463291286}
   - {fileID: 1370996478}
   m_Father: {fileID: 417083695}
@@ -12602,7 +12603,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 600}
+  m_SizeDelta: {x: 900, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1756621010
 MonoBehaviour:
@@ -14369,14 +14370,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.62352943, g: 0.25490198, b: 0.25490198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ee1c71fff9c432479371a33e20de30c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e66c1e73625fbba43abcc9182ee431d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14480,7 +14481,7 @@ MonoBehaviour:
   _levelMessage: {fileID: 245026076}
   _levelMessageText: {fileID: 192303920}
   _rewardText: {fileID: 429733200}
-  _winImage: {fileID: 674555246}
+  _winImage: {fileID: 3818178363515599320}
   _confetti: {fileID: 971178457}
   timerSlider: {fileID: 994372595}
 --- !u!1 &2116947098
@@ -14875,6 +14876,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RibbonImage
       objectReference: {fileID: 0}
+    - target: {fileID: 117302464618602141, guid: f527f128e5244cb4c94e13a964d535f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 384569274069197195, guid: f527f128e5244cb4c94e13a964d535f4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -14977,13 +14983,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 384569274069197195, guid: f527f128e5244cb4c94e13a964d535f4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 674555249}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f527f128e5244cb4c94e13a964d535f4, type: 3}
+--- !u!1 &3818178363515599320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117302464618602141, guid: f527f128e5244cb4c94e13a964d535f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3818178363515599319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

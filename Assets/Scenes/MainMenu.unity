@@ -4226,11 +4226,12 @@ MonoBehaviour:
   - {fileID: 1030528121}
   - {fileID: 1924822620}
   _spinbutton: {fileID: 1931002242}
-  _levelIcon: {fileID: 0}
+  _levelIcon: {fileID: 1622825753}
   _playButtons:
   - {fileID: 511861592}
   - {fileID: 1722934975}
   - {fileID: 1931002242}
+  - {fileID: 1544262839}
   - {fileID: 1544262839}
   _playTexts:
   - {fileID: 806044387}
@@ -5820,6 +5821,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7777717
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7777717
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7777717
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5841,7 +5857,7 @@ PrefabInstance:
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
@@ -5851,7 +5867,7 @@ PrefabInstance:
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
@@ -7025,7 +7041,7 @@ MonoBehaviour:
       - m_Target: {fileID: 663723214}
         m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
         m_MethodName: OutButton
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -36,7 +36,7 @@ public class TutorialManager : MonoBehaviour
             {
                 _tutorialPanel.SetActive(true);
                 _countOfTutorials = numberForStartPart2;
-                OutButton();
+                OutButton(false);
             }
         }
 
@@ -45,12 +45,12 @@ public class TutorialManager : MonoBehaviour
     {
         _chosePanel.SetActive(false);
         _tutorialPanel.SetActive(true);
-        OutButton();
+        OutButton(false);
     }
-    public void OutButton()
+    public void OutButton(bool result)
     {
         if (!isCoroutineRunning)
-            StartCoroutine(NextText());
+            StartCoroutine(NextText(result));
     }
     private bool CheckPlaing()
     {
@@ -67,7 +67,7 @@ public class TutorialManager : MonoBehaviour
         {
             _buttonForSwitchText.interactable = true;
             _countOfTutorials++;
-            OutButton();
+            OutButton(result);
         }
         return result;
     }
@@ -85,13 +85,14 @@ public class TutorialManager : MonoBehaviour
             _playTexts[Number].color = Color.white;
         }
     }
-    public IEnumerator NextText()
+    public IEnumerator NextText(bool WasClickAnotherButton)
     {
         if (_countOfTutorials < numberForStartPart2 || PlayerPrefs.GetInt("TutorialCompletedPart2", 0) == 1)
         {
             isCoroutineRunning = true;
             _textForTutorial.text = "";
-            _countOfTutorials++;
+            if(WasClickAnotherButton == false)
+                _countOfTutorials++;
             switch (_countOfTutorials)
             {
                 case 2:
@@ -117,10 +118,11 @@ public class TutorialManager : MonoBehaviour
                     Color newColor2;
                     if (ColorUtility.TryParseHtmlString(lightColor, out newColor2))
                         _spinbutton.color = newColor2;
+                    _buttonForSwitchText.interactable = false;
                     break;
                 case 11:
                     _spinPanel.SetActive(false);
-                    EventBus.ChangeBackground.Invoke(false,_levelIcon);
+                    EventBus.ChangeBackground.Invoke(true,_levelIcon);
                 break;
             }
             _writingTextSound.Play();

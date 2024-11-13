@@ -55,28 +55,37 @@ public class HomeMenu : MonoBehaviour
 
     private void ChangeColor(bool wasChangingColor, Image specialObject)
     {
+        Color grayColor = Color.gray;
+        Color whiteColor = Color.white;
         if (wasChangingColor == true)
         {
+            
             for (int i = 0; i < allImages.Length; i++)
             {
-                if (specialObject == null || specialObject != allImages[i])
+                if (specialObject == null || specialObject.name != allImages[i].name)
                 {
-                    allImages[i].color = Color.gray;
+                    allImages[i].color = grayColor;
                     if (i < 3)
-                        _textOfButtons[i].color = Color.gray;
+                        _textOfButtons[i].color = grayColor;
+                }
+                else
+                {
+                    allImages[i].color = whiteColor;
+                    if (i < 3)
+                        _textOfButtons[i].color = whiteColor;
                 }
             }
-            mainBackGroundImage.color = Color.gray;
+            mainBackGroundImage.color = grayColor;
         }
         else
         {
             for (int i = 0; i < allImages.Length; i++)
             {
-                allImages[i].color = Color.white;
+                allImages[i].color = whiteColor;
                 if (i < 3)
-                    _textOfButtons[i].color = Color.white;
+                    _textOfButtons[i].color = whiteColor;
             }
-            mainBackGroundImage.color = Color.white;
+            mainBackGroundImage.color = whiteColor;
         }
     }
     private void UpdaeteMoney()

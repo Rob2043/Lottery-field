@@ -59,6 +59,7 @@ public class SpinManager : MonoBehaviour
          EventBus.SetCoins.Invoke(wheelPiece.Amount);
          _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
          EventBus.UpdateMoney.Invoke();
+         EventBus.CanPlay.Invoke();
       });
       pickerWheel.Spin();
    }
