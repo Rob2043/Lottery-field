@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Buttons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: db1223f087edffc4fb0d1563f6b5199b, type: 3}
+    - {fileID: 2800000, guid: c406a3cd6ec3b25429abd72f8a6a5ca5, type: 3}
+    - {fileID: 2800000, guid: 1733dbe8eba384f9dbd4724d876a81d1, type: 3}
+    - {fileID: 2800000, guid: 28de47b04539caf4ea9b84fb5ee2cb0d, type: 3}
+    - {fileID: 2800000, guid: df014cb71045f20459e7213ab3599ce0, type: 3}
+    - {fileID: 2800000, guid: 123e32f47e1f15a408f399eef01d1b75, type: 3}
+    - {fileID: 2800000, guid: d55655bccee82374c9605bd1b36c01ae, type: 3}
+    - {fileID: 2800000, guid: 742e31bcae07909429d5e99726dc3061, type: 3}
+    - {fileID: 2800000, guid: 7c8021e335e65ed40b05adb8e4db64ba, type: 3}
+    - {fileID: 2800000, guid: ddd5882ffe8b307459e5a40d69521c9b, type: 3}
+    - {fileID: 2800000, guid: dcc5a104348b6fd41ac11bcb49079706, type: 3}
+    - {fileID: 2800000, guid: e9eddee54280ccf4f8d19c722dff6731, type: 3}
+    - {fileID: 2800000, guid: fd5ff9b47dc7586448f58c36cfd2badc, type: 3}
+    - {fileID: 2800000, guid: 6ea4a26d7ed6e804182ca5b588bd6eb7, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 28de47b04539caf4ea9b84fb5ee2cb0d: 21300000
+    - db1223f087edffc4fb0d1563f6b5199b: 21300000
+    - 7c8021e335e65ed40b05adb8e4db64ba: 21300000
+    - dcc5a104348b6fd41ac11bcb49079706: 21300000
+    - fd5ff9b47dc7586448f58c36cfd2badc: 21300000
+    - 123e32f47e1f15a408f399eef01d1b75: 21300000
+    - e9eddee54280ccf4f8d19c722dff6731: 21300000
+    - df014cb71045f20459e7213ab3599ce0: 21300000
+    - 1733dbe8eba384f9dbd4724d876a81d1: 21300000
+    - 742e31bcae07909429d5e99726dc3061: 21300000
+    - d55655bccee82374c9605bd1b36c01ae: 21300000
+    - 6ea4a26d7ed6e804182ca5b588bd6eb7: 21300000
+    - c406a3cd6ec3b25429abd72f8a6a5ca5: 21300000
+    - ddd5882ffe8b307459e5a40d69521c9b: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 28de47b04539caf4ea9b84fb5ee2cb0d, type: 3}
+  - {fileID: 21300000, guid: db1223f087edffc4fb0d1563f6b5199b, type: 3}
+  - {fileID: 21300000, guid: 7c8021e335e65ed40b05adb8e4db64ba, type: 3}
+  - {fileID: 21300000, guid: dcc5a104348b6fd41ac11bcb49079706, type: 3}
+  - {fileID: 21300000, guid: fd5ff9b47dc7586448f58c36cfd2badc, type: 3}
+  - {fileID: 21300000, guid: 123e32f47e1f15a408f399eef01d1b75, type: 3}
+  - {fileID: 21300000, guid: e9eddee54280ccf4f8d19c722dff6731, type: 3}
+  - {fileID: 21300000, guid: df014cb71045f20459e7213ab3599ce0, type: 3}
+  - {fileID: 21300000, guid: 1733dbe8eba384f9dbd4724d876a81d1, type: 3}
+  - {fileID: 21300000, guid: 742e31bcae07909429d5e99726dc3061, type: 3}
+  - {fileID: 21300000, guid: d55655bccee82374c9605bd1b36c01ae, type: 3}
+  - {fileID: 21300000, guid: 6ea4a26d7ed6e804182ca5b588bd6eb7, type: 3}
+  - {fileID: 21300000, guid: c406a3cd6ec3b25429abd72f8a6a5ca5, type: 3}
+  - {fileID: 21300000, guid: ddd5882ffe8b307459e5a40d69521c9b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Square_Light_Blue_Button_Normal
+  - Frame_Circle_Honey_60px
+  - Square_Red_Button_Pressed
+  - Square_Yellow_Button_Pressed
+  - Music_Off
+  - Square_Orange_Button_Normal
+  - Music
+  - Square_Light_Blue_Button_Pressed
+  - Ribbon_02
+  - Square_Red_Button_Normal
+  - Square_Orange_Button_Pressed
+  - X
+  - Frame_Circle_Red_60px
+  - Square_Yellow_Button_Normal
+  m_RenderDataMap: {}
+  m_Tag: Buttons
+  m_IsVariant: 0
