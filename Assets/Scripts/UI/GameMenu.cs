@@ -79,11 +79,14 @@ public class LocalMenu : MonoBehaviour
             mainAudioMixer.SetFloat("MasterVolume", VolumeOn);
             audioSources[0].Play();
             audioSources[1].Play();
+            isSoundActive = true;
         }
         else
         {
+            isSoundActive = false;
             mainAudioMixer.SetFloat("MasterVolume", VolumeOff);
         }
+        soundToggleButton.image.sprite = isSoundActive ? soundOnSprite : soundOffSprite;
     }
 
     public void ReturnToMainMenu()

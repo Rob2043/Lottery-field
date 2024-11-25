@@ -18,5 +18,5 @@ MonoBehaviour:
   AmountOfFreeSpins: 0
   _nameOfObject: Music
   _price: 5000
-  IsBuy: 1
+  IsBuy: 0
   IsSelect: 1

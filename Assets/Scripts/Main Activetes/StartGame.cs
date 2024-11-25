@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using CustomEventBus;
+using UnityEngine.UIElements;
+using UnityEngine.Rendering;
 
 public class StartGame : MonoBehaviour
 {
@@ -47,6 +49,8 @@ public class StartGame : MonoBehaviour
         _textOfSecondHidNumber = _ObjectOfSecondHidNumber.GetComponent<TMP_Text>();
         if (Iinstance.instance.MyLevel <= 5)
         {
+            Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
+            _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
             _choiceNumbers = new int[1];
             _choiceNumbers[0] = _FirstGuessDigit;
             _countOfTickets = Iinstance.instance.MyLevel * 2 + 2;
@@ -67,14 +71,20 @@ public class StartGame : MonoBehaviour
         _countOfNumbers = Random.Range(7, 9);
         _FirstGuessNumber = new int[_countOfNumbers];
         _SecondGuessNumber = new int[_countOfNumbers];
-        RandomNumbers = new int[_countOfNumbers];
+        RandomNumbers = new int[_countOfTickets];
         (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
         (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
         for (int i = 0; i < _ButtonsNumbers.Length; i++)
         {
             _arrayTextNumbers[i] = _ButtonsNumbers[i].GetComponentInChildren<TMP_Text>();
-            if (i >= _countOfTickets)
+            Vector3 position = _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition;
+            if (i > _countOfTickets - 1)
+            {
+                Debug.Log(i);
                 _ButtonsNumbers[i].SetActive(false);
+            }    
+            else if (Iinstance.instance.MyLevel <= 3)
+                _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(position.x, position.y - 440f, position.z);
         }
         bool diferentRandom = false;
         do
@@ -119,6 +129,7 @@ public class StartGame : MonoBehaviour
                         else
                             _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
                     }
+                    Debug.Log(_randomNumber);
                 }
             }
             _arrayTextNumbers[i].text = $"{_randomNumber}";
@@ -149,7 +160,6 @@ public class StartGame : MonoBehaviour
         int count = _countOfTickets - 2;
         for (int i = 2; i < winTikets.Length; i++)
         {
-            Debug.Log(count);
             winTikets[i] = count;
             count++;
         }

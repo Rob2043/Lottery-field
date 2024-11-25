@@ -12,6 +12,7 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private TMP_Text _textOfMoney;
     [SerializeField] private TMP_Text _textOfPriceMoney;
     [SerializeField] private TMP_Text _resultText;
+    [SerializeField] private TMP_Text _infoLevelText;
     [Header("Others")]
     [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private GameObject _levelMessage;
@@ -55,7 +56,7 @@ public class ChooseControler : MonoBehaviour
                 {
                     float percent = level * 0.25f + level;
                     PlayerPrefs.SetInt("Level", level++);
-                    _levelMessageText.text = $"You upgraded your level to {level}!!";
+                    _levelMessageText.text = "You upgraded your level!";
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins.Invoke(price);
                     _resultText.text = "You Won!";
@@ -66,11 +67,12 @@ public class ChooseControler : MonoBehaviour
                 else
                 {
                     level = 1;
-                    _levelMessageText.text = $"You downgraded your level to {level}!";
+                    _levelMessageText.text = $"You downgraded your level!";
                     _winImage.SetActive(false);
                     _rewardText.SetActive(false);
                     _resultText.text = "You Lose";
                 }
+                _infoLevelText.text = $"{level}";
                 Iinstance.instance.MyLevel = level;
                 EventBus.ChangeBackgroundInGame.Invoke(true);
                 _levelMessage.SetActive(true);

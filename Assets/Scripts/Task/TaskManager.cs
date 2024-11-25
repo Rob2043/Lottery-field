@@ -105,7 +105,7 @@ public class TaskManager : MonoBehaviour
         _goatTexts[periodOfTask].text = $"{chooseNumber}";
         chooseNumber = 0;
         _buttonsForGetMoney[periodOfTask].interactable = false;
-        _imagesFromButton[count].color = Color.gray;
+        _imagesFromButton[periodOfTask].color = Color.gray;
         PlayerPrefs.SetInt($"{_arrayOfNameTask[periodOfTask]}TaskWasCollecting{periodOfTask}", 1);
         PlayerPrefs.Save();
     }
