@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 
 public class StartGame : MonoBehaviour
 {
+    const int MinCountOfLevel = 10;
     [Header("Texts")]
     [SerializeField] private GameObject[] _ButtonsNumbers = new GameObject[16];
     [SerializeField] private TMP_Text _textOfFirstHidNumber;
@@ -40,22 +41,34 @@ public class StartGame : MonoBehaviour
     private int _hiddenNumber = 5;
     private int RandomPeriodFirstNumber = 0;
     private int RandomPeriodSecondNumber = 0;
-    private int firstfalseNumber = 0;
+    private int falseNumber = 0;
     private int secondfalseNumber = 0;
+    private int _countOfSecretNumbers = 0;
+    private int[] _arrayOfSecretsNumbers;
     #endregion RandomsNumbers
 
     private void Awake()
     {
         _textOfSecondHidNumber = _ObjectOfSecondHidNumber.GetComponent<TMP_Text>();
-        if (Iinstance.instance.MyLevel <= 5)
+        int MyLevel = Iinstance.instance.MyLevel;
+        if (MyLevel <= 2)
         {
-            Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
-            _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
+            switch (MyLevel)
+            {
+                case 1:
+                    Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
+                    _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
+                    _countOfSecretNumbers = 1;
+                    break;
+                case 2:
+                    _countOfSecretNumbers = 2;
+                    break;
+            }
+            _countOfTickets = MinCountOfLevel;
+            checklevel = false;
             _choiceNumbers = new int[1];
             _choiceNumbers[0] = _FirstGuessDigit;
-            _countOfTickets = Iinstance.instance.MyLevel * 2 + 2;
             _ObjectOfSecondHidNumber.SetActive(false);
-            checklevel = false;
             _textCountOfChance.text = "/1";
         }
         else
@@ -66,7 +79,14 @@ public class StartGame : MonoBehaviour
             _choiceNumbers[0] = _FirstGuessDigit;
             _choiceNumbers[1] = _SecondGuessDigit;
             soManyTickets = true;
-            _countOfTickets = Iinstance.instance.MyLevel * 2 + 6;
+            _countOfTickets = MyLevel * 2 + 6;
+            _countOfSecretNumbers = MyLevel * 2 - 2;
+        }
+        _arrayOfSecretsNumbers = new int[_countOfSecretNumbers];
+        for (int i = 0; i < _countOfSecretNumbers; i++)
+        {
+            falseNumber = Random.Range(1, _countOfTickets);
+            _arrayOfSecretsNumbers[i] = falseNumber;
         }
         _countOfNumbers = Random.Range(7, 9);
         _FirstGuessNumber = new int[_countOfNumbers];
@@ -76,15 +96,10 @@ public class StartGame : MonoBehaviour
         (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
         for (int i = 0; i < _ButtonsNumbers.Length; i++)
         {
-            _arrayTextNumbers[i] = _ButtonsNumbers[i].GetComponentInChildren<TMP_Text>();
-            Vector3 position = _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition;
             if (i > _countOfTickets - 1)
             {
-                Debug.Log(i);
                 _ButtonsNumbers[i].SetActive(false);
-            }    
-            else if (Iinstance.instance.MyLevel <= 3)
-                _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(position.x, position.y - 440f, position.z);
+            }
         }
         bool diferentRandom = false;
         do
@@ -94,46 +109,33 @@ public class StartGame : MonoBehaviour
             if (RandomPeriodFirstNumber != RandomPeriodSecondNumber)
                 diferentRandom = true;
         } while (diferentRandom == false);
-        bool firstCheck = false;
-        bool secondCheck = false;
-        do
-        {
-            firstfalseNumber = Random.Range(1, _countOfTickets);
-            if (RandomPeriodFirstNumber != firstfalseNumber)
-                firstCheck = true;
-            secondfalseNumber = Random.Range(1, _countOfTickets);
-            if (RandomPeriodSecondNumber != secondfalseNumber)
-                secondCheck = true;
-        } while (firstCheck == false & secondCheck == false);
         for (int i = 0; i < RandomNumbers.Length; i++)
         {
+            _arrayTextNumbers[i] = _ButtonsNumbers[i].GetComponentInChildren<TMP_Text>();
             int _randomNumber = RandomNumbers[i];
-            if (firstfalseNumber == i)
-                _randomNumber = ChangeGuestNumber(1);
-            else if (secondfalseNumber == i && soManyTickets!)
-                _randomNumber = ChangeGuestNumber(2);
+            if (i == RandomPeriodFirstNumber)
+                _randomNumber = _FirstGuessDigit;
+            else if (i == RandomPeriodSecondNumber && soManyTickets!)
+                _randomNumber = _SecondGuessDigit;
             else
             {
-                if (i == RandomPeriodFirstNumber)
-                    _randomNumber = _FirstGuessDigit;
-                else if (i == RandomPeriodSecondNumber && soManyTickets!)
-                    _randomNumber = _SecondGuessDigit;
-                else
+                int _guessRandomDigit = 0;
+                for (int j = 0; j < _countOfNumbers; j++)
                 {
-                    int _guessRandomDigit = 0;
-                    for (int j = 0; j < _countOfNumbers; j++)
-                    {
-                        _guessRandomDigit = Random.Range(1, 10);
-                        if (_randomNumber == 0)
-                            _randomNumber = _guessRandomDigit;
-                        else
-                            _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
-                    }
-                    Debug.Log(_randomNumber);
+                    _guessRandomDigit = Random.Range(1, 10);
+                    if (_randomNumber == 0)
+                        _randomNumber = _guessRandomDigit;
+                    else
+                        _randomNumber = (_randomNumber * 10) + _guessRandomDigit;
                 }
             }
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
+        }
+        for(int i = 0; i < _arrayOfSecretsNumbers.Length; i++)
+        {
+            RandomNumbers[i] = ChangeGuestNumber();
+            _arrayTextNumbers[i].text = $"{RandomNumbers[i]}";
         }
         OnTime();
     }
@@ -169,10 +171,10 @@ public class StartGame : MonoBehaviour
     {
         return checklevel;
     }
-    private int ChangeGuestNumber(int period)
+    private int ChangeGuestNumber()
     {
         int _guessNumber = 0;
-        switch (period)
+        switch (Random.Range(1, 3))
         {
             case 1:
                 _guessNumber = _FirstGuessDigit;

@@ -12761,6 +12761,7 @@ MonoBehaviour:
   - ' If you lose, the level is downgraded to the first one. Each level increases
     your income by 25%.'
   - 'The higher your level, the more tickets you have on the field '
+  - 'Each level will get harder and harder.  '
   - "let\u2019s play"
   _textForTutorial: {fileID: 967473048}
   _writingTextSound: {fileID: 1936606860}

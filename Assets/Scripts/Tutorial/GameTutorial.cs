@@ -6,7 +6,7 @@ using CustomEventBus;
 
 public class GameTutorial : MonoBehaviour
 {
-    const int numberForStartPart2 = 9;
+    const int numberForStartPart2 = 10;
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private string[] _tutorialsTexts;
     [SerializeField] private TMP_Text _textForTutorial;
