@@ -2,25 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SafeArea : MonoBehaviour
 {
-    private RectTransform panelSafeArea;
-    private Rect currentSafeArea;
+    [SerializeField] private RectTransform panelSafeArea;
+    private RectTransform _curretTransform;
 
     void Start()
     {
-        panelSafeArea = GetComponent<RectTransform>();
-        currentSafeArea = Screen.safeArea;
-        //ApplySafeArea();
-        if (!currentSafeArea.Equals(Screen.safeArea))
+        _curretTransform = GetComponent<RectTransform>();
+        if (Screen.safeArea.position.y > _curretTransform.anchorMin.y)
         {
             ApplySafeArea();
         }
     }
 
-    void ApplySafeArea()
+    private void ApplySafeArea()
     {
         Debug.Log("Test");
-        Vector2 size = panelSafeArea.sizeDelta;
-        size.y = 0f;
-        panelSafeArea.sizeDelta = size;
+        panelSafeArea.anchoredPosition = new Vector2(panelSafeArea.anchoredPosition.x, panelSafeArea.anchoredPosition.y - 90f);
     }
 }
