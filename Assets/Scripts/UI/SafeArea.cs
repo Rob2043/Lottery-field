@@ -16,7 +16,6 @@ public class SafeArea : MonoBehaviour
 
     private void ApplySafeArea()
     {
-        Debug.Log("Test");
-        panelSafeArea.anchoredPosition = new Vector2(panelSafeArea.anchoredPosition.x, panelSafeArea.anchoredPosition.y - 90f);
+        panelSafeArea.anchoredPosition = new Vector2(panelSafeArea.anchoredPosition.x, panelSafeArea.anchoredPosition.y - 110f);
     }
 }

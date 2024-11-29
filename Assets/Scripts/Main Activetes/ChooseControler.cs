@@ -55,8 +55,11 @@ public class ChooseControler : MonoBehaviour
                 if (wasWin == true)
                 {
                     float percent = level * 0.25f + level;
-                    PlayerPrefs.SetInt("Level", level++);
-                    _levelMessageText.text = "You upgraded your level!";
+                    if(level < 6)
+                    {
+                        PlayerPrefs.SetInt("Level", level++);
+                        _levelMessageText.text = "You upgraded your level!";
+                    }
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins.Invoke(price);
                     _resultText.text = "You Won!";

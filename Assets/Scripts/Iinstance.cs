@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using CustomEventBus;
-using JetBrains.Annotations;
 using UnityEngine;
+using System;
 
 public class Iinstance : MonoBehaviour
 {
@@ -40,13 +40,16 @@ public class Iinstance : MonoBehaviour
             return;
         }
     }
-    private void SetCoins(int Amount) => Coins += Amount;
+    private void SetCoins(int Amount) {
+        Coins += Amount;
+        Debug.Log(Coins);
+    } 
     private void SetFreeSpin(int Amount) => FreeSpins += Amount;
     private int GetCoins()
     {
         return Coins;
     }
-    private void OnApplicationQuit()
+    void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("Level",MyLevel);
         PlayerPrefs.SetInt("Money", Coins);
