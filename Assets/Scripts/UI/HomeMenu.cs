@@ -8,10 +8,8 @@ using UnityEngine.UI;
 public class HomeMenu : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private TMP_Text starsText;
     [SerializeField] private TMP_Text _levelText;
-    [SerializeField] private TMP_Text _secondStarsText;
-    [SerializeField] private TMP_Text _thirdStarsText;
+    [SerializeField] private TMP_Text[] _coinsText = new TMP_Text[3];
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject ErrorPanel;
     [SerializeField] private GameObject SpinPanel;
@@ -90,9 +88,8 @@ public class HomeMenu : MonoBehaviour
     }
     private void UpdaeteMoney()
     {
-        starsText.text = $"{Iinstance.instance.Coins}";
-        _secondStarsText.text = $"{Iinstance.instance.Coins}";
-        _thirdStarsText.text = $"{Iinstance.instance.Coins}";
+        for(int i = 0 ; i < _coinsText.Length; i++)
+            _coinsText[i].text = $"{EventBus.GetCoins.Invoke()}";
     }
     private void InitializeAudioSettings()
     {

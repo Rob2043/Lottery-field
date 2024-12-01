@@ -8,7 +8,7 @@ public class Iinstance : MonoBehaviour
 {
     private const int AmountOfTask = 3;
     public static Iinstance instance;
-    public int Coins;
+    private int Coins;
     public int FreeSpins;
     public int MyLevel;
     public Dictionary<string, float> TypesOfTask = new(AmountOfTask);
@@ -42,7 +42,6 @@ public class Iinstance : MonoBehaviour
     }
     private void SetCoins(int Amount) {
         Coins += Amount;
-        Debug.Log(Coins);
     } 
     private void SetFreeSpin(int Amount) => FreeSpins += Amount;
     private int GetCoins()

@@ -5822,17 +5822,17 @@ PrefabInstance:
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7777717
+      value: 1.7777718
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.7777717
+      value: 1.7777718
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.7777717
+      value: 1.7777718
       objectReference: {fileID: 0}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
@@ -6015,10 +6015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59fcc23c100d61342beaa69959b1ec82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starsText: {fileID: 838699173}
   _levelText: {fileID: 1710077490}
-  _secondStarsText: {fileID: 536448251}
-  _thirdStarsText: {fileID: 906193107}
+  _coinsText:
+  - {fileID: 838699173}
+  - {fileID: 536448251}
+  - {fileID: 906193107}
   settingsPanel: {fileID: 5613170}
   ErrorPanel: {fileID: 1966603057}
   SpinPanel: {fileID: 2120483572}
@@ -6146,11 +6147,11 @@ RectTransform:
   - {fileID: 511861590}
   - {fileID: 740947540}
   - {fileID: 1413448988}
-  - {fileID: 838699172}
   - {fileID: 969058593}
   - {fileID: 1931002240}
   - {fileID: 1722934973}
   - {fileID: 1622825752}
+  - {fileID: 838699172}
   m_Father: {fileID: 1022443226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7923,7 +7924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1094999691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7936,7 +7937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26b2588d7d11524d8bd682ccb2a2d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Coins: 0
   FreeSpins: 0
   MyLevel: 0
   ArrayOfNameTask:
