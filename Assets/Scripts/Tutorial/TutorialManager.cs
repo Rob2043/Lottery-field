@@ -119,8 +119,10 @@ public class TutorialManager : MonoBehaviour
                     if (ColorUtility.TryParseHtmlString(lightColor, out newColor2))
                         _spinbutton.color = newColor2;
                     _buttonForSwitchText.interactable = false;
+                    _tutorialPanel.SetActive(false);
                     break;
                 case 11:
+                    _tutorialPanel.SetActive(true);
                     _spinPanel.SetActive(false);
                     EventBus.ChangeBackground.Invoke(true,_levelIcon);
                 break;
