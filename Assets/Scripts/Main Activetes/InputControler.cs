@@ -11,9 +11,14 @@ public class InputControler : MonoBehaviour
 
     private void Start()
     {
-        if(EventBus.SituationWithCountOfGuessNumber.Invoke() == false)
+        if (EventBus.SituationWithCountOfGuessNumber.Invoke() == false)
             _AmountOfTicket = 1;
         _ScoreOfTickets.text = $"{_AmountOfTicket}";
+    }
+    private void Update()
+    {
+        if(Input.touchCount > 0)
+            EventBus.ExitLevelPanel.Invoke();
     }
     public void ChoseButton(int numberOfButton)
     {

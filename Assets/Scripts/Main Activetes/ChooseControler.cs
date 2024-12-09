@@ -12,13 +12,12 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private TMP_Text _textOfMoney;
     [SerializeField] private TMP_Text _textOfPriceMoney;
     [SerializeField] private TMP_Text _resultText;
-    [SerializeField] private TMP_Text _infoLevelText;
     [Header("Others")]
+    [SerializeField] private GameObject _winPanel;
+    [SerializeField] private GameObject _losePanel;
     [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private GameObject _levelMessage;
     [SerializeField] private TMP_Text _levelMessageText;
-    [SerializeField] private GameObject _winPanel;
-    [SerializeField] private GameObject _losePanel;
     [SerializeField] private ParticleSystem _confetti;
     [SerializeField] private Slider timerSlider;
 
@@ -50,6 +49,7 @@ public class ChooseControler : MonoBehaviour
             }
             if (_time <= 0 && _wasWin == false)
             {
+                EventBus.ChangeBackgroundInGame.Invoke(true);
                 int level = Iinstance.instance.MyLevel;
                 (bool wasWin, int value) = EventBus.ReadyForCheck.Invoke();
                 if (wasWin == true)
@@ -58,25 +58,29 @@ public class ChooseControler : MonoBehaviour
                     if(level < 6)
                     {
                         PlayerPrefs.SetInt("Level", level++);
-                        _levelMessageText.text = "You upgraded your level!";
+                        _levelMessageText.text = "Level up!";   
+                        Iinstance.instance.MyLevel = level;
+                        EventBus.InfoLevel.Invoke(true);
                     }
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins.Invoke(price);
-                    _winPanel.SetActive(true);
                     _resultText.text = "You Won!";
                     _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
-                    _textOfPriceMoney.text = $"{price}";
+                    _textOfPriceMoney.text = $"{price}";  
                     _confetti.Play();
+                    _winPanel.SetActive(true);
                 }
                 else
                 {
                     level = 1;
-                    _levelMessageText.text = $"You downgraded your level!";
-                    _losePanel.SetActive(true);
+                    _levelMessageText.text = $"Level down!";
                     _resultText.text = "You Lose";
+                    EventBus.InfoLevel.Invoke(false);
+                    Iinstance.instance.MyLevel = level;
+                    _winPanel.SetActive(false);
+                    _losePanel.SetActive(true);
                 }
-                _infoLevelText.text = $"{level}";
-                Iinstance.instance.MyLevel = level;
+
                 EventBus.ChangeBackgroundInGame.Invoke(true);
                 _levelMessage.SetActive(true);
                 _endGamePanel.SetActive(true);

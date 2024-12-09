@@ -107,6 +107,7 @@ public class HomeMenu : MonoBehaviour
         _chosePanel.SetActive(false);
         ChangeColor(false, null);
         PlayerPrefs.SetInt("TutorialCompleted", 1);
+        PlayerPrefs.SetInt("TutorialCompletedPart2", 1);
         PlayerPrefs.Save();
     }
     public void StartGame()

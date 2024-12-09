@@ -53,11 +53,12 @@ public class StartGame : MonoBehaviour
         int MyLevel = Iinstance.instance.MyLevel;
         if (MyLevel <= 2)
         {
+            Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
+            _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
             switch (MyLevel)
             {
                 case 1:
-                    Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
-                    _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
+
                     _countOfSecretNumbers = 1;
                     break;
                 case 2:
@@ -81,6 +82,7 @@ public class StartGame : MonoBehaviour
             soManyTickets = true;
             _countOfTickets = MyLevel * 2 + 6;
             _countOfSecretNumbers = MyLevel * 2 - 2;
+            Debug.Log(_countOfTickets);
         }
         _arrayOfSecretsNumbers = new int[_countOfSecretNumbers];
         for (int i = 0; i < _countOfSecretNumbers; i++)
@@ -94,9 +96,10 @@ public class StartGame : MonoBehaviour
         RandomNumbers = new int[_countOfTickets];
         (_FirstGuessDigit, _FirstGuessNumber) = IninizializationNumber(_FirstGuessNumber, _FirstGuessDigit, RememberOfFirstPeriod, RememberFirstNumber);
         (_SecondGuessDigit, _SecondGuessNumber) = IninizializationNumber(_SecondGuessNumber, _SecondGuessDigit, RememberOfSecondPeriod, RememberSecondNumber);
+        int target = _countOfTickets - 1;
         for (int i = 0; i < _ButtonsNumbers.Length; i++)
         {
-            if (i > _countOfTickets - 1)
+            if (i > target)
             {
                 _ButtonsNumbers[i].SetActive(false);
             }
@@ -132,7 +135,7 @@ public class StartGame : MonoBehaviour
             _arrayTextNumbers[i].text = $"{_randomNumber}";
             RandomNumbers[i] = _randomNumber;
         }
-        for(int i = 0; i < _arrayOfSecretsNumbers.Length; i++)
+        for (int i = 0; i < _arrayOfSecretsNumbers.Length; i++)
         {
             RandomNumbers[i] = ChangeGuestNumber();
             _arrayTextNumbers[i].text = $"{RandomNumbers[i]}";

@@ -27,5 +27,7 @@ namespace CustomEventBus
         public static Action<bool> ChangeBackgroundInGame;
         public static Func<int[]> ReturnWinArray;
         public static Func<bool> SituationWithCountOfGuessNumber;
+        public static Action<bool> InfoLevel;
+        public static Action ExitLevelPanel;
     }
 }
