@@ -11,6 +11,10 @@ public class StartGame : MonoBehaviour
     [Header("Texts")]
     [SerializeField] private GameObject[] _ButtonsNumbers = new GameObject[16];
     [SerializeField] private TMP_Text _textOfFirstHidNumber;
+    [SerializeField] private RectTransform _moneyPosition;
+    [SerializeField] private RectTransform _gamePanelPosition;
+    [SerializeField] private RectTransform _timerPosition;
+    [SerializeField] private RectTransform _scorePosition;
     [SerializeField] private TMP_Text _textCountOfChance;
     [SerializeField] private GameObject _ObjectOfSecondHidNumber;
     private TMP_Text _textOfSecondHidNumber;
@@ -45,6 +49,7 @@ public class StartGame : MonoBehaviour
     private int secondfalseNumber = 0;
     private int _countOfSecretNumbers = 0;
     private int[] _arrayOfSecretsNumbers;
+    private int _distanceForSeparation = 10;
     #endregion RandomsNumbers
 
     private void Awake()
@@ -53,12 +58,23 @@ public class StartGame : MonoBehaviour
         int MyLevel = Iinstance.instance.MyLevel;
         if (MyLevel <= 2)
         {
-            Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
-            _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 180f, textTransform.y);
+            if (EventBus.ChangeUI.Invoke() == true)
+            {
+                Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
+                _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 200f, textTransform.y - 195f);
+                _timerPosition.anchoredPosition = new Vector2(_timerPosition.anchoredPosition.x, _timerPosition.anchoredPosition.y - 125f);
+                _scorePosition.anchoredPosition = new Vector2(_scorePosition.anchoredPosition.x, _scorePosition.anchoredPosition.y - 75f);
+                _moneyPosition.anchoredPosition = new Vector2(_moneyPosition.anchoredPosition.x, _moneyPosition.anchoredPosition.y - 75f);
+            }
+            else
+            {
+                Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
+                _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 200f, textTransform.y - 50f);
+                _gamePanelPosition.anchoredPosition = new Vector2(_gamePanelPosition.anchoredPosition.x, _gamePanelPosition.anchoredPosition.y - 150f);
+            }
             switch (MyLevel)
             {
                 case 1:
-
                     _countOfSecretNumbers = 1;
                     break;
                 case 2:
@@ -102,6 +118,21 @@ public class StartGame : MonoBehaviour
             if (i > target)
             {
                 _ButtonsNumbers[i].SetActive(false);
+            }
+            else if (MyLevel < 5)
+            {
+                if (i % 2 == 0)
+                {
+                    _distanceForSeparation += 10;
+                    Vector2 position = _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition;
+                    _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(position.x, position.y - 240f - _distanceForSeparation);
+                }
+                else
+                {
+                    Vector2 position = _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition;
+                    Vector2 previousPosition = _ButtonsNumbers[i - 1].GetComponent<RectTransform>().anchoredPosition;
+                    _ButtonsNumbers[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(position.x, previousPosition.y);
+                }
             }
         }
         bool diferentRandom = false;

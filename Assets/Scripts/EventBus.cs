@@ -29,5 +29,6 @@ namespace CustomEventBus
         public static Func<bool> SituationWithCountOfGuessNumber;
         public static Action<bool> InfoLevel;
         public static Action ExitLevelPanel;
+        public static Func<bool> ChangeUI;
     }
 }

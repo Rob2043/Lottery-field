@@ -62,6 +62,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: e66c1e73625fbba43abcc9182ee431d1, type: 3}
     - {fileID: 2800000, guid: 534a4b639165bf14eb08cdbdb90ef29a, type: 3}
     - {fileID: 2800000, guid: d77d1fd4b2da488499aeb28582e282b4, type: 3}
+    - {fileID: 2800000, guid: 7c910be9fd0188d4186a958ae1d38c41, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -78,6 +79,7 @@ SpriteAtlas:
     - e9eddee54280ccf4f8d19c722dff6731: 21300000
     - df014cb71045f20459e7213ab3599ce0: 21300000
     - 1733dbe8eba384f9dbd4724d876a81d1: 21300000
+    - 7c910be9fd0188d4186a958ae1d38c41: 21300000
     - 742e31bcae07909429d5e99726dc3061: 21300000
     - d55655bccee82374c9605bd1b36c01ae: 21300000
     - 6ea4a26d7ed6e804182ca5b588bd6eb7: 21300000
@@ -97,6 +99,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e9eddee54280ccf4f8d19c722dff6731, type: 3}
   - {fileID: 21300000, guid: df014cb71045f20459e7213ab3599ce0, type: 3}
   - {fileID: 21300000, guid: 1733dbe8eba384f9dbd4724d876a81d1, type: 3}
+  - {fileID: 21300000, guid: 7c910be9fd0188d4186a958ae1d38c41, type: 3}
   - {fileID: 21300000, guid: 742e31bcae07909429d5e99726dc3061, type: 3}
   - {fileID: 21300000, guid: d55655bccee82374c9605bd1b36c01ae, type: 3}
   - {fileID: 21300000, guid: 6ea4a26d7ed6e804182ca5b588bd6eb7, type: 3}
@@ -115,6 +118,7 @@ SpriteAtlas:
   - Music
   - Square_Light_Blue_Button_Pressed
   - Ribbon_02
+  - index
   - Square_Red_Button_Normal
   - Square_Orange_Button_Pressed
   - X
