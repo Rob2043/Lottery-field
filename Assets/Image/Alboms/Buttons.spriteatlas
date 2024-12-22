@@ -63,6 +63,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 534a4b639165bf14eb08cdbdb90ef29a, type: 3}
     - {fileID: 2800000, guid: d77d1fd4b2da488499aeb28582e282b4, type: 3}
     - {fileID: 2800000, guid: 7c910be9fd0188d4186a958ae1d38c41, type: 3}
+    - {fileID: 2800000, guid: 19a48c273e699344789bafa1e0e9ed23, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -77,6 +78,7 @@ SpriteAtlas:
     - d77d1fd4b2da488499aeb28582e282b4: 21300000
     - 123e32f47e1f15a408f399eef01d1b75: 21300000
     - e9eddee54280ccf4f8d19c722dff6731: 21300000
+    - 19a48c273e699344789bafa1e0e9ed23: 21300000
     - df014cb71045f20459e7213ab3599ce0: 21300000
     - 1733dbe8eba384f9dbd4724d876a81d1: 21300000
     - 7c910be9fd0188d4186a958ae1d38c41: 21300000
@@ -97,6 +99,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d77d1fd4b2da488499aeb28582e282b4, type: 3}
   - {fileID: 21300000, guid: 123e32f47e1f15a408f399eef01d1b75, type: 3}
   - {fileID: 21300000, guid: e9eddee54280ccf4f8d19c722dff6731, type: 3}
+  - {fileID: 21300000, guid: 19a48c273e699344789bafa1e0e9ed23, type: 3}
   - {fileID: 21300000, guid: df014cb71045f20459e7213ab3599ce0, type: 3}
   - {fileID: 21300000, guid: 1733dbe8eba384f9dbd4724d876a81d1, type: 3}
   - {fileID: 21300000, guid: 7c910be9fd0188d4186a958ae1d38c41, type: 3}
@@ -116,6 +119,7 @@ SpriteAtlas:
   - Golden_s-Ticket__
   - Square_Orange_Button_Normal
   - Music
+  - R_Square
   - Square_Light_Blue_Button_Pressed
   - Ribbon_02
   - index
