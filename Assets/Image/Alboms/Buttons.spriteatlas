@@ -64,6 +64,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: d77d1fd4b2da488499aeb28582e282b4, type: 3}
     - {fileID: 2800000, guid: 7c910be9fd0188d4186a958ae1d38c41, type: 3}
     - {fileID: 2800000, guid: 19a48c273e699344789bafa1e0e9ed23, type: 3}
+    - {fileID: 2800000, guid: cd759dd346617874dbdd9931e9fe55aa, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -72,6 +73,7 @@ SpriteAtlas:
     - db1223f087edffc4fb0d1563f6b5199b: 21300000
     - 534a4b639165bf14eb08cdbdb90ef29a: 21300000
     - e66c1e73625fbba43abcc9182ee431d1: 21300000
+    - cd759dd346617874dbdd9931e9fe55aa: 21300000
     - 7c8021e335e65ed40b05adb8e4db64ba: 21300000
     - dcc5a104348b6fd41ac11bcb49079706: 21300000
     - fd5ff9b47dc7586448f58c36cfd2badc: 21300000
@@ -93,6 +95,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: db1223f087edffc4fb0d1563f6b5199b, type: 3}
   - {fileID: 21300000, guid: 534a4b639165bf14eb08cdbdb90ef29a, type: 3}
   - {fileID: 21300000, guid: e66c1e73625fbba43abcc9182ee431d1, type: 3}
+  - {fileID: 21300000, guid: cd759dd346617874dbdd9931e9fe55aa, type: 3}
   - {fileID: 21300000, guid: 7c8021e335e65ed40b05adb8e4db64ba, type: 3}
   - {fileID: 21300000, guid: dcc5a104348b6fd41ac11bcb49079706, type: 3}
   - {fileID: 21300000, guid: fd5ff9b47dc7586448f58c36cfd2badc, type: 3}
@@ -113,6 +116,7 @@ SpriteAtlas:
   - Frame_Circle_Honey_60px
   - image.psd
   - Settings
+  - BackgroundLine
   - Square_Red_Button_Pressed
   - Square_Yellow_Button_Pressed
   - Music_Off

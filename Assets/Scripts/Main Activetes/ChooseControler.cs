@@ -13,6 +13,7 @@ public class ChooseControler : MonoBehaviour
     [SerializeField] private TMP_Text _textOfPriceMoney;
     [SerializeField] private TMP_Text _resultText;
     [Header("Others")]
+    [SerializeField] private RectTransform _itemStar;
     [SerializeField] private GameObject _winPanel;
     [SerializeField] private GameObject _losePanel;
     [SerializeField] private GameObject _endGamePanel;
@@ -55,18 +56,27 @@ public class ChooseControler : MonoBehaviour
                 if (wasWin == true)
                 {
                     float percent = level * 0.25f + level;
-                    if(level < 6)
+                    if (level < 6)
                     {
                         PlayerPrefs.SetInt("Level", level++);
-                        _levelMessageText.text = "Level up!";   
+                        _levelMessageText.text = "Level up!";
                         Iinstance.instance.MyLevel = level;
                         EventBus.InfoLevel.Invoke(true);
                     }
                     int price = (int)(_winScore * value * percent);
                     EventBus.SetCoins.Invoke(price);
                     _resultText.text = "You Won!";
+                    switch (price)
+                    {
+                        case < 1000:
+                            _itemStar.anchoredPosition = new Vector2(_itemStar.anchoredPosition.x - 150f, _itemStar.anchoredPosition.y);
+                            break;
+                        case < 10000:
+                            _itemStar.anchoredPosition = new Vector2(_itemStar.anchoredPosition.x - 50f, _itemStar.anchoredPosition.y);
+                            break;
+                    }
                     _textOfMoney.text = $"{EventBus.GetCoins.Invoke()}";
-                    _textOfPriceMoney.text = $"{price}";  
+                    _textOfPriceMoney.text = $"{price}";
                     _confetti.Play();
                     _winPanel.SetActive(true);
                 }
