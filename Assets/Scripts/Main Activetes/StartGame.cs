@@ -14,7 +14,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private RectTransform _moneyPosition;
     [SerializeField] private RectTransform _gamePanelPosition;
     [SerializeField] private RectTransform _timerPosition;
-    [SerializeField] private RectTransform _scorePosition;
+    [SerializeField] private RectTransform _ticketPosition;
     [SerializeField] private TMP_Text _textCountOfChance;
     [SerializeField] private GameObject _ObjectOfSecondHidNumber;
     private TMP_Text _textOfSecondHidNumber;
@@ -63,7 +63,7 @@ public class StartGame : MonoBehaviour
                 Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
                 _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 200f, textTransform.y - 195f);
                 _timerPosition.anchoredPosition = new Vector2(_timerPosition.anchoredPosition.x, _timerPosition.anchoredPosition.y - 125f);
-                _scorePosition.anchoredPosition = new Vector2(_scorePosition.anchoredPosition.x, _scorePosition.anchoredPosition.y - 75f);
+                _ticketPosition.anchoredPosition = new Vector2(_ticketPosition.anchoredPosition.x, _ticketPosition.anchoredPosition.y - 75f);
                 _moneyPosition.anchoredPosition = new Vector2(_moneyPosition.anchoredPosition.x, _moneyPosition.anchoredPosition.y - 75f);
             }
             else
@@ -71,6 +71,8 @@ public class StartGame : MonoBehaviour
                 Vector2 textTransform = _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition;
                 _textOfFirstHidNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(textTransform.x + 200f, textTransform.y - 50f);
                 _gamePanelPosition.anchoredPosition = new Vector2(_gamePanelPosition.anchoredPosition.x, _gamePanelPosition.anchoredPosition.y - 150f);
+                _ticketPosition.anchoredPosition = new Vector2(_ticketPosition.anchoredPosition.x - 230f, _ticketPosition.anchoredPosition.y);
+                _moneyPosition.anchoredPosition = new Vector2(_moneyPosition.anchoredPosition.x - 50f, _moneyPosition.anchoredPosition.y + 150f);
             }
             switch (MyLevel)
             {
@@ -90,6 +92,10 @@ public class StartGame : MonoBehaviour
         }
         else
         {
+            if(MyLevel == 3)
+            {
+                _gamePanelPosition.anchoredPosition = new Vector2(_gamePanelPosition.anchoredPosition.x, _gamePanelPosition.anchoredPosition.y - 100f);
+            }
             _textCountOfChance.text = "/2";
             checklevel = true;
             _choiceNumbers = new int[2];

@@ -5631,6 +5631,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Money 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2866488692411462084, guid: ab61c8c1cc383c84faa7c80eadb58438,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a4c0c3bce830a9b4382a02249a70ac1a,
+        type: 3}
     - target: {fileID: 3918975158359461381, guid: ab61c8c1cc383c84faa7c80eadb58438,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8055,7 +8061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4c0c3bce830a9b4382a02249a70ac1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10132,7 +10138,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4c0c3bce830a9b4382a02249a70ac1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13205,7 +13211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4c0c3bce830a9b4382a02249a70ac1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
