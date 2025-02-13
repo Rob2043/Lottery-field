@@ -27,6 +27,7 @@ public class ChooseControler : MonoBehaviour
     private bool _wasChousing = false;
     private bool _wasWin = false;
 
+
     private void Start()
     {
         EventBus.ChouseNumber = IsChoose;
@@ -50,6 +51,13 @@ public class ChooseControler : MonoBehaviour
             }
             if (_time <= 0 && _wasWin == false)
             {
+                if(PlayerPrefs.GetInt("Ended",0) == 1)
+                {
+                    EventBus.ShowAds.Invoke();
+                    PlayerPrefs.SetInt("Ended", 0);
+                }
+                else 
+                    PlayerPrefs.SetInt("Ended", 1);
                 EventBus.ChangeBackgroundInGame.Invoke(true);
                 int level = Iinstance.instance.MyLevel;
                 (bool wasWin, int value) = EventBus.ReadyForCheck.Invoke();

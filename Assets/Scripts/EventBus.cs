@@ -30,5 +30,9 @@ namespace CustomEventBus
         public static Action<bool> InfoLevel;
         public static Action ExitLevelPanel;
         public static Func<bool> ChangeUI;
+        #region Ads
+        public static Action ShowAds;
+        public static Action RewardAds;
+        #endregion Ads
     }
 }

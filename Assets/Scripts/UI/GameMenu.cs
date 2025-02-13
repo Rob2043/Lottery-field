@@ -107,7 +107,6 @@ public class LocalMenu : MonoBehaviour
         gameDisplayPanel.SetActive(false);
         exitPanel.SetActive(true);
     }
-
     public void HideExitPanel()
     {
         Time.timeScale = 1f;

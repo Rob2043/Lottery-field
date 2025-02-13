@@ -179,6 +179,11 @@ public class HomeMenu : MonoBehaviour
         else
             SpinPanel.SetActive(true);
     }
+    public void RewardButton()
+    {
+        audioClips[1].Play();
+        EventBus.RewardAds.Invoke();
+    }
     public void GiveMoney()
     {
         SpinPanel.SetActive(true);
