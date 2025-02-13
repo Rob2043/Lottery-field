@@ -5,7 +5,7 @@ using CustomEventBus;
 
 public class AdsShow : MonoBehaviour
 {
-
+    private int AdID = 0;
     void Start()
     {
 
@@ -22,10 +22,10 @@ public class AdsShow : MonoBehaviour
     }
     private void ShowAds()
     {
-
+        EventBus.YandexShowAds?.Invoke();
     }
     private void RewardAds()
     {
-
+        EventBus.YandexRewardAds?.Invoke(AdID);
     }
 }
